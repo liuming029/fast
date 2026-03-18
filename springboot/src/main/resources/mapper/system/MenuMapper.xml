@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fast.system.mapper.MenuMapper">
+
+	<resultMap type="Menu" id="MenuResult">
+		<id     property="menuId"         column="menu_id"        />
+		<result property="menuName"       column="menu_name"      />
+		<result property="parentName"     column="parent_name"    />
+		<result property="parentId"       column="parent_id"      />
+		<result property="orderNum"       column="order_num"      />
+		<result property="path"           column="path"           />
+		<result property="component"      column="component"      />
+		<result property="menuType"       column="menu_type"      />
+		<result property="icon"           column="icon"           />
+		<result property="createTime"     column="create_time"    />
+		<result property="userId"     column="user_id"    />
+	</resultMap>
+
+	<sql id="selectMenuVo">
+        select menu_id, menu_name, parent_id, order_num, path, component, menu_type, icon, create_time
+		from menu
+    </sql>
+
+    <select id="selectMenuList" parameterType="Menu" resultMap="MenuResult">
+		<include refid="selectMenuVo"/>
+		<where>
+			<if test="menuName != null and menuName != ''">
+				AND menu_name like concat('%', #{menuName}, '%')
+			</if>
+		</where>
+		order by parent_id, order_num
+	</select>
+
+	<select id="selectMenuTreeAll" resultMap="MenuResult">
+		select distinct m.menu_id, m.parent_id, m.menu_name, m.path, m.component, m.menu_type, m.icon, m.order_num, m.create_time
+		from menu m where m.menu_type in ('M', 'C')
+		order by m.parent_id, m.order_num
+	</select>
+
+	<select id="selectMenuListByUserId" parameterType="Menu" resultMap="MenuResult">
+		select distinct m.menu_id, m.parent_id, m.menu_name, m.path, m.component, m.menu_type, m.icon, m.order_num, m.create_time
+		from menu m
+		left join role_menu rm on m.menu_id = rm.menu_id
+		left join user_role ur on rm.role_id = ur.role_id
+		left join role ro on ur.role_id = ro.role_id
+		<if test="userId != null and userId != ''">
+			AND ur.user_id like concat('%', #{userId}, '%')
+		</if>
+		<if test="menuName != null and menuName != ''">
+            AND m.menu_name like concat('%', #{menuName}, '%')
+		</if>
+		order by m.parent_id, m.order_num
+	</select>
+
+    <select id="selectMenuTreeByUserId" parameterType="Long" resultMap="MenuResult">
+		select distinct m.menu_id, m.parent_id, m.menu_name, m.path, m.component, m.menu_type, m.icon, m.order_num, m.create_time
+		from menu m
+			 left join role_menu rm on m.menu_id = rm.menu_id
+			 left join user_role ur on rm.role_id = ur.role_id
+			 left join user u on ur.user_id = u.user_id
+		where u.user_id = #{userId} and m.menu_type in ('M', 'C')
+		order by m.parent_id, m.order_num
+	</select>
+
+	<select id="selectMenuListByRoleId" resultType="Long">
+		select m.menu_id
+		from menu m
+            left join role_menu rm on m.menu_id = rm.menu_id
+        where rm.role_id = #{roleId}
+		order by m.parent_id, m.order_num
+	</select>
+
+	<select id="selectMenuById" parameterType="Long" resultMap="MenuResult">
+		<include refid="selectMenuVo"/>
+		where menu_id = #{menuId}
+	</select>
+
+	<select id="hasChildByMenuId" resultType="Integer">
+	    select count(1) from menu where parent_id = #{menuId}
+	</select>
+
+	<update id="updateMenu" parameterType="Menu">
+		update menu
+		<set>
+			<if test="menuName != null and menuName != ''">menu_name = #{menuName},</if>
+			<if test="parentId != null">parent_id = #{parentId},</if>
+			<if test="orderNum != null">order_num = #{orderNum},</if>
+			<if test="path != null and path != ''">path = #{path},</if>
+			<if test="component != null">component = #{component},</if>
+			<if test="menuType != null and menuType != ''">menu_type = #{menuType},</if>
+			<if test="icon !=null and icon != ''">icon = #{icon},</if>
+		</set>
+		where menu_id = #{menuId}
+	</update>
+
+	<insert id="insertMenu" parameterType="Menu">
+		insert into menu(
+		<if test="menuId != null and menuId != 0">menu_id,</if>
+		<if test="parentId != null and parentId != 0">parent_id,</if>
+		<if test="menuName != null and menuName != ''">menu_name,</if>
+		<if test="orderNum != null">order_num,</if>
+		<if test="path != null and path != ''">path,</if>
+		<if test="component != null and component != ''">component,</if>
+		<if test="menuType != null and menuType != ''">menu_type,</if>
+		<if test="icon != null and icon != ''">icon,</if>
+		create_time
+		)values(
+		<if test="menuId != null and menuId != 0">#{menuId},</if>
+		<if test="parentId != null and parentId != 0">#{parentId},</if>
+		<if test="menuName != null and menuName != ''">#{menuName},</if>
+		<if test="orderNum != null">#{orderNum},</if>
+		<if test="path != null and path != ''">#{path},</if>
+		<if test="component != null and component != ''">#{component},</if>
+		<if test="menuType != null and menuType != ''">#{menuType},</if>
+		<if test="icon != null and icon != ''">#{icon},</if>
+		sysdate()
+		)
+	</insert>
+
+	<delete id="deleteMenuById" parameterType="Long">
+	    delete from menu where menu_id = #{menuId}
+	</delete>
+
+</mapper>

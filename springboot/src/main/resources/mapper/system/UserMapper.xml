@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fast.system.mapper.UserMapper">
+
+    <resultMap type="User" id="UserResult">
+        <id     property="userId"       column="user_id"      />
+        <result property="userName"     column="user_name"    />
+        <result property="nickName"     column="nick_name"    />
+        <result property="sex"          column="sex"          />
+        <result property="avatar"       column="avatar"       />
+        <result property="password"     column="password"     />
+        <result property="createTime"   column="create_time"  />
+		<result property="roleId"       column="role_id"        />
+		<result property="roleName"     column="role_name"      />
+    </resultMap>
+
+	<sql id="selectUserVo">
+        select u.user_id, u.user_name, u.nick_name, u.avatar, u.password, u.sex, u.create_time,
+        r.role_id, r.role_name, r.role_sort
+        from user u
+		    left join user_role ur on u.user_id = ur.user_id
+		    left join role r on r.role_id = ur.role_id
+    </sql>
+
+    <select id="selectUserList" parameterType="User" resultMap="UserResult">
+		select u.user_id, u.nick_name, u.user_name, u.avatar, u.sex, u.create_time
+		from user u
+		<where>
+			<if test="userId != null and userId != 0">
+				AND u.user_id = #{userId}
+			</if>
+			<if test="userName != null and userName != ''">
+				AND u.user_name like concat('%', #{userName}, '%')
+			</if>
+		</where>
+	</select>
+
+	<select id="selectUserByUserName" parameterType="String" resultMap="UserResult">
+		select u.user_id, u.user_name, u.nick_name, u.avatar, u.password, u.sex, u.create_time,
+			   r.role_id, r.role_name, r.role_sort
+		from user u
+				 left join user_role ur on u.user_id = ur.user_id
+				 left join role r on r.role_id = ur.role_id
+		where u.user_name = #{userName}
+	</select>
+
+	<select id="selectUserById" parameterType="Long" resultMap="UserResult">
+		select u.user_id, u.user_name, u.nick_name, u.avatar, u.password, u.sex, u.create_time,
+			   r.role_id, r.role_name, r.role_sort
+		from user u
+				 left join user_role ur on u.user_id = ur.user_id
+				 left join role r on r.role_id = ur.role_id
+		where u.user_id = #{userId}
+	</select>
+
+	<insert id="insertUser" parameterType="User" useGeneratedKeys="true" keyProperty="userId">
+ 		insert into user(
+ 			<if test="userId != null and userId != 0">user_id,</if>
+ 			<if test="userName != null and userName != ''">user_name,</if>
+ 			<if test="nickName != null and nickName != ''">nick_name,</if>
+ 			<if test="avatar != null and avatar != ''">avatar,</if>
+ 			<if test="sex != null and sex != ''">sex,</if>
+ 			<if test="password != null and password != ''">password,</if>
+ 			create_time
+ 		)values(
+ 			<if test="userId != null and userId != ''">#{userId},</if>
+ 			<if test="userName != null and userName != ''">#{userName},</if>
+ 			<if test="nickName != null and nickName != ''">#{nickName},</if>
+ 			<if test="avatar != null and avatar != ''">#{avatar},</if>
+ 			<if test="sex != null and sex != ''">#{sex},</if>
+ 			<if test="password != null and password != ''">#{password},</if>
+ 			sysdate()
+ 		)
+	</insert>
+
+	<update id="updateUser" parameterType="User">
+ 		update user
+ 		<set>
+ 			<if test="nickName != null and nickName != ''">nick_name = #{nickName},</if>
+ 			<if test="sex != null and sex != ''">sex = #{sex},</if>
+ 			<if test="avatar != null and avatar != ''">avatar = #{avatar},</if>
+ 			<if test="password != null and password != ''">password = #{password},</if>
+ 		</set>
+ 		where user_id = #{userId}
+	</update>
+
+	<update id="updateUserAvatar" parameterType="User">
+ 		update user set avatar = #{avatar} where user_name = #{userName}
+	</update>
+
+	<update id="resetUserPwd" parameterType="User">
+ 		update user set password = #{password} where user_name = #{userName}
+	</update>
+
+ 	<delete id="deleteUserByIds" parameterType="Long">
+		delete from user where user_id in
+ 		<foreach collection="array" item="userId" open="(" separator="," close=")">
+ 			#{userId}
+        </foreach>
+ 	</delete>
+
+</mapper>

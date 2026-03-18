@@ -1,0 +1,35 @@
+{
+  "description": "后台管理端",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build:prod": "vite build",
+    "build:stage": "vite build --mode staging",
+    "preview": "vite preview"
+  },
+  "repository": {
+    "type": "git"
+  },
+  "dependencies": {
+    "@element-plus/icons-vue": "2.3.2",
+    "@wangeditor/editor": "^5.1.23",
+    "@wangeditor/editor-for-vue": "^5.1.12",
+    "@wangeditor/plugin-md": "^1.0.0",
+    "axios": "1.13.2",
+    "element-plus": "2.13.0",
+    "pinia": "3.0.4",
+    "vue": "3.5.26",
+    "vue-router": "4.6.4",
+    "vxe-pc-ui": "^4.11.17",
+    "xe-utils": "^3.8.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "6.0.3",
+    "sass": "1.97.1",
+    "unplugin-auto-import": "0.17.6",
+    "unplugin-vue-setup-extend-plus": "1.0.1",
+    "vite": "7.1.11",
+    "vite-plugin-compression": "0.5.1",
+    "vite-plugin-svg-icons": "2.0.1"
+  }
+}

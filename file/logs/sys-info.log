@@ -1,0 +1,35 @@
+11:34:06.267 [main] INFO  c.f.fastEasyApplication - [logStarting,53] - Starting fastEasyApplication using Java 21.0.10 with PID 2640 (C:\Users\刘铭\Desktop\fast\springboot\target\classes started by 刘铭 in C:\Users\刘铭\Desktop\fast)
+11:34:06.272 [main] INFO  c.f.fastEasyApplication - [logStartupProfileInfo,658] - The following 1 profile is active: "druid"
+11:34:07.768 [main] INFO  o.a.c.h.Http11NioProtocol - [log,168] - Initializing ProtocolHandler ["http-nio-8080"]
+11:34:07.770 [main] INFO  o.a.c.c.StandardService - [log,168] - Starting service [Tomcat]
+11:34:07.770 [main] INFO  o.a.c.c.StandardEngine - [log,168] - Starting Servlet engine: [Apache Tomcat/10.1.50]
+11:34:07.808 [main] INFO  o.a.c.c.C.[.[.[/] - [log,168] - Initializing Spring embedded WebApplicationContext
+11:34:07.890 [main] INFO  c.a.d.s.b.a.DruidDataSourceAutoConfigure - [dataSource,68] - Init DruidDataSource
+11:34:07.941 [main] INFO  c.a.d.p.DruidDataSource - [init,1002] - {dataSource-1} inited
+11:34:08.723 [main] INFO  o.a.c.h.Http11NioProtocol - [log,168] - Starting ProtocolHandler ["http-nio-8080"]
+11:34:08.747 [main] INFO  c.f.fastEasyApplication - [logStarted,59] - Started fastEasyApplication in 2.77 seconds (process running for 4.286)
+11:34:27.236 [SpringApplicationShutdownHook] INFO  c.a.d.p.DruidDataSource - [close,2204] - {dataSource-1} closing ...
+11:34:27.236 [SpringApplicationShutdownHook] INFO  c.a.d.p.DruidDataSource - [close,2277] - {dataSource-1} closed
+11:34:31.218 [main] INFO  c.f.fastEasyApplication - [logStarting,53] - Starting fastEasyApplication using Java 21.0.10 with PID 21272 (C:\Users\刘铭\Desktop\fast\springboot\target\classes started by 刘铭 in C:\Users\刘铭\Desktop\fast)
+11:34:31.219 [main] INFO  c.f.fastEasyApplication - [logStartupProfileInfo,658] - The following 1 profile is active: "druid"
+11:34:32.020 [main] INFO  o.a.c.h.Http11NioProtocol - [log,168] - Initializing ProtocolHandler ["http-nio-8080"]
+11:34:32.021 [main] INFO  o.a.c.c.StandardService - [log,168] - Starting service [Tomcat]
+11:34:32.021 [main] INFO  o.a.c.c.StandardEngine - [log,168] - Starting Servlet engine: [Apache Tomcat/10.1.50]
+11:34:32.059 [main] INFO  o.a.c.c.C.[.[.[/] - [log,168] - Initializing Spring embedded WebApplicationContext
+11:34:32.141 [main] INFO  c.a.d.s.b.a.DruidDataSourceAutoConfigure - [dataSource,68] - Init DruidDataSource
+11:34:32.186 [main] INFO  c.a.d.p.DruidDataSource - [init,1002] - {dataSource-1} inited
+11:34:32.857 [main] INFO  o.a.c.h.Http11NioProtocol - [log,168] - Starting ProtocolHandler ["http-nio-8080"]
+11:34:32.885 [main] INFO  c.f.fastEasyApplication - [logStarted,59] - Started fastEasyApplication in 1.956 seconds (process running for 2.821)
+12:02:42.657 [SpringApplicationShutdownHook] INFO  c.a.d.p.DruidDataSource - [close,2204] - {dataSource-1} closing ...
+12:02:42.658 [SpringApplicationShutdownHook] INFO  c.a.d.p.DruidDataSource - [close,2277] - {dataSource-1} closed
+12:14:39.584 [main] INFO  c.f.fastEasyApplication - [logStarting,53] - Starting fastEasyApplication using Java 21.0.10 with PID 2192 (C:\Users\刘铭\Desktop\fast\springboot\target\classes started by 刘铭 in C:\Users\刘铭\Desktop\fast)
+12:14:39.585 [main] INFO  c.f.fastEasyApplication - [logStartupProfileInfo,658] - The following 1 profile is active: "druid"
+12:14:40.500 [main] INFO  o.a.c.h.Http11NioProtocol - [log,168] - Initializing ProtocolHandler ["http-nio-8080"]
+12:14:40.501 [main] INFO  o.a.c.c.StandardService - [log,168] - Starting service [Tomcat]
+12:14:40.501 [main] INFO  o.a.c.c.StandardEngine - [log,168] - Starting Servlet engine: [Apache Tomcat/10.1.50]
+12:14:40.544 [main] INFO  o.a.c.c.C.[.[.[/] - [log,168] - Initializing Spring embedded WebApplicationContext
+12:14:40.635 [main] INFO  c.a.d.s.b.a.DruidDataSourceAutoConfigure - [dataSource,68] - Init DruidDataSource
+12:14:40.690 [main] INFO  c.a.d.p.DruidDataSource - [init,1002] - {dataSource-1} inited
+12:14:41.428 [main] INFO  o.a.c.h.Http11NioProtocol - [log,168] - Starting ProtocolHandler ["http-nio-8080"]
+12:14:41.453 [main] INFO  c.f.fastEasyApplication - [logStarted,59] - Started fastEasyApplication in 2.179 seconds (process running for 3.169)
+12:19:14.938 [http-nio-8080-exec-3] INFO  o.a.c.c.C.[.[.[/] - [log,168] - Initializing Spring DispatcherServlet 'dispatcherServlet'

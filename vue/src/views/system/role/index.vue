@@ -1,0 +1,327 @@
+<template>
+    <div class="app-container">
+        <el-form :model="queryParams" ref="queryRef" v-show="showSearch" :inline="true" label-width="68px">
+            <el-form-item label="角色名称" prop="roleName">
+                <el-input
+                        v-model="queryParams.roleName"
+                        placeholder="请输入角色名称"
+                        clearable
+                        style="width: 240px"
+                        @keyup.enter="handleQuery"
+                />
+            </el-form-item>
+            <el-form-item>
+                <el-button type="primary" icon="Search" @click="handleQuery">搜索</el-button>
+                <el-button icon="Refresh" @click="resetQuery">重置</el-button>
+            </el-form-item>
+        </el-form>
+        <el-row :gutter="10" class="mb8">
+            <el-col :span="1.5">
+                <el-button
+                        type="primary"
+                        plain
+                        icon="Plus"
+                        @click="handleAdd"
+                >新增
+                </el-button>
+            </el-col>
+            <el-col :span="1.5">
+                <el-button
+                        type="success"
+                        plain
+                        icon="Edit"
+                        :disabled="single"
+                        @click="handleUpdate"
+                >修改
+                </el-button>
+            </el-col>
+            <el-col :span="1.5">
+                <el-button
+                        type="danger"
+                        plain
+                        icon="Delete"
+                        :disabled="multiple"
+                        @click="handleDelete"
+                >删除
+                </el-button>
+            </el-col>
+        </el-row>
+
+        <!-- 表格数据 -->
+        <el-table border v-loading="loading" :data="roleList" @selection-change="handleSelectionChange">
+            <el-table-column type="selection" width="55" align="center"/>
+            <el-table-column label="角色编号" prop="roleId" width="120"/>
+            <el-table-column label="角色名称" prop="roleName" :show-overflow-tooltip="true" width="150"/>
+            <el-table-column label="显示顺序" prop="roleSort" width="100"/>
+            <el-table-column label="创建时间" align="center" prop="createTime"/>
+            <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
+                <template #default="scope">
+                    <el-tooltip content="修改" placement="top" v-if="scope.row.roleId !== 1">
+                        <el-button link type="primary" icon="Edit" @click="handleUpdate(scope.row)"></el-button>
+                    </el-tooltip>
+                    <el-tooltip content="删除" placement="top" v-if="scope.row.roleId !== 1">
+                        <el-button link type="primary" icon="Delete" @click="handleDelete(scope.row)"></el-button>
+                    </el-tooltip>
+                </template>
+            </el-table-column>
+        </el-table>
+
+        <pagination
+                v-show="total > 0"
+                :total="total"
+                v-model:page="queryParams.pageNum"
+                v-model:limit="queryParams.pageSize"
+                @pagination="getList"
+        />
+
+        <!-- 添加或修改角色配置对话框 -->
+        <vxe-modal :title="title" v-model="open" width="500px" show-maximize showFooter resize height="60vh">
+            <el-form ref="roleRef" :model="form" :rules="rules" label-width="100px">
+                <el-form-item label="角色名称" prop="roleName">
+                    <el-input v-model="form.roleName" placeholder="请输入角色名称"/>
+                </el-form-item>
+                <el-form-item label="角色顺序" prop="roleSort">
+                    <el-input-number v-model="form.roleSort" controls-position="right" :min="0"/>
+                </el-form-item>
+                <el-form-item label="菜单权限">
+                    <el-checkbox v-model="menuExpand" @change="handleCheckedTreeExpand($event, 'menu')">展开/折叠
+                    </el-checkbox>
+                    <el-checkbox v-model="menuNodeAll" @change="handleCheckedTreeNodeAll($event, 'menu')">全选/全不选
+                    </el-checkbox>
+                    <el-tree
+                            class="tree-border"
+                            :data="menuOptions"
+                            show-checkbox
+                            ref="menuRef"
+                            node-key="id"
+                            empty-text="加载中，请稍候"
+                            :props="{ label: 'label', children: 'children' }"
+                    ></el-tree>
+                </el-form-item>
+            </el-form>
+            <template #footer>
+                <div class="dialog-footer">
+                    <el-button type="primary" @click="submitForm">确 定</el-button>
+                    <el-button @click="cancel">取 消</el-button>
+                </div>
+            </template>
+        </vxe-modal>
+    </div>
+</template>
+
+<script setup>
+import {addRole, delRole, getRole, listRole, updateRole} from "@/api/system/role"
+import {roleMenuTreeselect, treeselect as menuTreeselect} from "@/api/system/menu"
+import {useRouter} from "vue-router";
+import {ElMessage, ElMessageBox} from "element-plus";
+
+const router = useRouter()
+const queryRef = ref()  // 添加对queryRef的引用
+const roleRef = ref()
+
+const roleList = ref([])
+const open = ref(false)
+const loading = ref(true)
+const showSearch = ref(true)
+const ids = ref([])
+const single = ref(true)
+const multiple = ref(true)
+const total = ref(0)
+const title = ref("")
+const menuOptions = ref([])
+const menuExpand = ref(false)
+const menuNodeAll = ref(false)
+const menuRef = ref(null)
+
+const data = reactive({
+    form: {},
+    queryParams: {
+        pageNum: 1,
+        pageSize: 10,
+        roleName: undefined
+    },
+    rules: {
+        roleName: [{required: true, message: "角色名称不能为空", trigger: "blur"}],
+        roleSort: [{required: true, message: "角色顺序不能为空", trigger: "blur"}]
+    },
+})
+
+const {queryParams, form, rules} = toRefs(data)
+
+/** 查询角色列表 */
+function getList() {
+    loading.value = true
+    listRole(queryParams.value).then(response => {
+        roleList.value = response.rows
+        total.value = response.total
+        loading.value = false
+    })
+}
+
+/** 搜索按钮操作 */
+function handleQuery() {
+    queryParams.value.pageNum = 1
+    getList()
+}
+
+/** 重置按钮操作 */
+function resetQuery() {
+    queryRef.value.resetFields()
+    handleQuery()
+}
+
+/** 删除按钮操作 */
+function handleDelete(row) {
+    const roleIds = row.roleId || ids.value
+    ElMessageBox.confirm('是否确认删除角色编号为"' + roleIds + '"的数据项?', '系统提示', {
+      confirmButtonText: '确定',
+      cancelButtonText: '取消',
+      type: "warning",
+    }).then(function () {
+        return delRole(roleIds)
+    }).then(() => {
+        getList()
+        ElMessage.success("删除成功")
+    }).catch(() => {
+    })
+}
+
+/** 多选框选中数据 */
+function handleSelectionChange(selection) {
+    ids.value = selection.map(item => item.roleId)
+    single.value = selection.length != 1
+    multiple.value = !selection.length
+}
+
+/** 查询菜单树结构 */
+function getMenuTreeselect() {
+    menuTreeselect().then(response => {
+        menuOptions.value = response.data
+    })
+}
+
+/** 重置新增的表单以及其他数据  */
+function reset() {
+    if (menuRef.value != undefined) {
+        menuRef.value.setCheckedKeys([])
+    }
+    menuExpand.value = false
+    menuNodeAll.value = false
+    form.value = {
+        roleId: undefined,
+        roleName: undefined,
+        roleSort: 0,
+        menuIds: []
+    }
+    if (roleRef.value) {
+      roleRef.value.resetFields()
+    }
+}
+
+/** 添加角色 */
+function handleAdd() {
+    reset()
+    getMenuTreeselect()
+    open.value = true
+    title.value = "添加角色"
+}
+
+/** 修改角色 */
+function handleUpdate(row) {
+    reset()
+    const roleId = row.roleId || ids.value
+    const roleMenu = getRoleMenuTreeselect(roleId)
+    getRole(roleId).then(response => {
+        form.value = response.data
+        form.value.roleSort = Number(form.value.roleSort)
+        open.value = true
+        nextTick(() => {
+            roleMenu.then((res) => {
+                let checkedKeys = res.checkedKeys
+                checkedKeys.forEach((v) => {
+                    nextTick(() => {
+                        menuRef.value.setChecked(v, true, false)
+                    })
+                })
+            })
+        })
+    })
+    title.value = "修改角色"
+}
+
+/** 根据角色ID查询菜单树结构 */
+function getRoleMenuTreeselect(roleId) {
+    return roleMenuTreeselect(roleId).then(response => {
+        menuOptions.value = response.menus
+        return response
+    })
+}
+
+/** 树权限（展开/折叠）*/
+function handleCheckedTreeExpand(value, type) {
+    if (type == "menu") {
+        let treeList = menuOptions.value
+        for (let i = 0; i < treeList.length; i++) {
+            menuRef.value.store.nodesMap[treeList[i].id].expanded = value
+        }
+    }
+}
+
+/** 树权限（全选/全不选） */
+function handleCheckedTreeNodeAll(value, type) {
+    if (type == "menu") {
+        menuRef.value.setCheckedNodes(value ? menuOptions.value : [])
+    }
+}
+
+/** 所有菜单节点数据 */
+function getMenuAllCheckedKeys() {
+    // 目前被选中的菜单节点
+    let checkedKeys = menuRef.value.getCheckedKeys()
+    // 半选中的菜单节点
+    let halfCheckedKeys = menuRef.value.getHalfCheckedKeys()
+    checkedKeys.unshift.apply(checkedKeys, halfCheckedKeys)
+    return checkedKeys
+}
+
+/** 提交按钮 */
+function submitForm() {
+    roleRef.value.validate(valid => {
+        if (valid) {
+            if (form.value.roleId != undefined) {
+                form.value.menuIds = getMenuAllCheckedKeys()
+                updateRole(form.value).then(response => {
+                    ElMessage.success("修改成功")
+                    open.value = false
+                    getList()
+                })
+            } else {
+                form.value.menuIds = getMenuAllCheckedKeys()
+                addRole(form.value).then(response => {
+                    ElMessage.success("新增成功")
+                    open.value = false
+                    getList()
+                })
+            }
+        }
+    })
+}
+
+/** 取消按钮 */
+function cancel() {
+    open.value = false
+    reset()
+}
+
+getList()
+</script>
+
+<style scoped>
+.tree-border {
+    margin-top: 5px;
+    border: 1px solid var(--el-border-color-light, #e5e6e7);
+    background: var(--el-bg-color, #FFFFFF) none;
+    border-radius:4px;
+    width: 100%;
+}
+</style>
