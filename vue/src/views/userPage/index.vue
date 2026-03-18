@@ -5,7 +5,7 @@
             <div class="header">
                 <div class="header-left">
                     <img src="@/assets/logo/logo.png" alt="">
-                    <div class="titles" @click="router.push('/user/home')">前台用户端</div>
+                    <div class="titles" @click="router.push('/user/home')">学生快递代取平台</div>
                 </div>
                 <div class="header-center">
                     <div class="front-header-nav">
@@ -139,7 +139,7 @@ const logout = () => {
     display: flex;
     height: 70px;
     line-height: 70px;
-    background-color: #409EFF;
+    background-color: #3AAE6E;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 /* 导航菜单样式调整 */

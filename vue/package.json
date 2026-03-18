@@ -1,5 +1,5 @@
 {
-  "description": "后台管理端",
+  "description": "快递代取平台后台管理端R",
   "type": "module",
   "scripts": {
     "dev": "vite",
