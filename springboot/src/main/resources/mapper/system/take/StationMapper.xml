@@ -10,5 +10,13 @@
         <result property="name" column="name"/>
         <result property="sort" column="sort"/>
     </resultMap>
-
+    <!--查询快递站点列表, 并根据排序字段正序排序-->
+    <select id="selectStationList" parameterType="Station" resultMap="StationResult">
+        select station_id, name, sort
+        from station
+        <where>
+            <if test="name != null and name != ''"> and name like concat('%', #{name} ,'%') </if>
+        </where>
+        order by sort
+    </select>
 </mapper>
