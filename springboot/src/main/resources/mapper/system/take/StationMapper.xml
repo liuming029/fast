@@ -18,5 +18,28 @@
             <if test="name != null and name != ''"> and name like concat('%', #{name} ,'%') </if>
         </where>
         order by sort
+  </select>
+    <!--获取快递站点详细信息-->
+    <select id="selectStationByStationId" parameterType="String" resultMap="StationResult">
+        select station_id, name, sort
+        from station
+        where station_id = #{stationId}
     </select>
+
+    <!--新增快递站点-->
+
+    <insert id="insertStation" parameterType="Station">
+        insert into station
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="stationId != null">station_id,</if>
+            <if test="name != null and name != ''">name,</if>
+            <if test="sort != null">sort,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="stationId != null">#{stationId},</if>
+            <if test="name != null and name != ''">#{name},</if>
+            <if test="sort != null">#{sort},</if>
+        </trim>
+    </insert>
+
 </mapper>

@@ -8,6 +8,7 @@ import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 /**
  * 快递站点 Service业务层
@@ -19,6 +20,29 @@ public class StationServiceImpl implements IStationService {
 
     @Override
     public List<Station> selectStationList(Station station) {
-        return stationMapper.selectStationList(station);
+             return stationMapper.selectStationList(station);
     }
-}
+
+    @Override
+    public Station selectStationByStationId(String stationId) {
+        return stationMapper.selectStationByStationId(stationId);
+    }
+    /**
+     * 新增快递站点
+     * @param station 表单参数
+     * @return 是否新增成功
+     */
+    @Override
+    //生成一个UUID并插入对象中
+    public int insertStation(Station station) {
+        station.setStationId(String.valueOf(UUID.randomUUID()));
+        return stationMapper.insertStation(station);
+    }
+
+
+
+
+
+
+    }
+

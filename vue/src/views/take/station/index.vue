@@ -14,6 +14,17 @@
       </el-form-item>
     </el-form>
 
+    <!-- 顶部按钮 -->
+    <el-row :gutter="10" style="padding: 10px 0">
+      <el-col :span="1.5">
+        <el-button type="primary"
+                   plain
+                   icon="Plus"
+                   @click="handleAdd"
+        >新增
+        </el-button>
+      </el-col>
+    </el-row>
     <!-- 表格 -->
     <el-table ref="tableRef" highlight-current-row border v-loading="loading" :data="stationList"
               @selection-change="handleSelectionChange" @row-click="clickRow">
@@ -35,7 +46,24 @@
                 v-model:limit="queryParms.pageSize"
                 @pagination="getList"
     />
+        <vxe-modal :title="title" v-model="open" width="600px" show-maximize showFooter resize>
+          <el-form ref="stationRef" :model ="from" :rules="rules" label-width="80px">
+            <el-form-item label="分类名称" prop="name">
+              <el-input v-model="from.name" placeholder="请输入分类名称">
+              </el-input>
+            </el-form-item>
+            <el-form-item label="排序" prop="sort">
+              <el-input-number style="width:100%" v-model="from.sort" placeholder="请输入排序">
+              </el-input-number>
+            </el-form-item>
+          </el-form>
+          <template #footer>
+            <el-button type="primary" @click="submitForm()">确定</el-button>
+            <el-button @click="open=false">取消</el-button>
 
+          </template>
+
+       </vxe-modal>
   </div>
 </template>
 
@@ -43,12 +71,76 @@
 import {onMounted, ref} from 'vue'
 import {listStation} from "@/api/take/station.js";
 import Pagination from "@/components/Pagination/index.vue";
+import {addStation, getStation} from "../../../api/take/station.js";
+import {ElMessage} from "element-plus";
 
 //顶部搜索表单实例
 const queryRef = ref()
 
 //表格实例
 const tableRef = ref()
+
+//对话框title名称
+const title = ref('')
+
+//对话框是否打开
+const open = ref(false)
+
+//对话框实例
+const stationRef = ref()
+
+//表单参数
+const from = ref({})
+
+//表单校验
+const rules = ref({
+  name: [{required: true, message: "站点名称不能为空", trigger: "blur"}],
+  sort: [{required: true, message: "排序不能为空", trigger: "blur"}],
+
+})
+
+
+//新增按钮
+const handleAdd = () => {
+  reset()
+  open.value = true
+  title.value = "新增快递站点"
+}
+
+//表单重置
+const reset = () =>{
+  from.value = {
+    stationId: null,
+    name : null,
+    sort :null
+  }
+}
+if(stationRef.value){
+
+  stationRef.value.resetField()
+}
+
+//提交按钮
+const submitForm = () =>{
+  stationRef.value.validate( valid =>{
+
+    if(valid){
+      if(from.value.stationId !=null){
+        //修改时比较
+      }else {
+       // 新增时提交
+        addStation(from.value).then(ref=> {
+          ElMessage.success('新增成功~')
+          open.value = false
+          getList()
+
+        })
+        }
+      }
+    }
+  )}
+
+
 
 //加载状态
 const loading = ref(false)
@@ -131,6 +223,7 @@ const getList = () => {
 onMounted(() => {
   getList()
 })
+
 </script>
 
 <style scoped>
