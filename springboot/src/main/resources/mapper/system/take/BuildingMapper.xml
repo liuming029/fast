@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fast.take.mapper.BuildingMapper">
+
+    <resultMap type="Building" id="BuildingResult">
+        <result property="buildingId"    column="building_id"    />
+        <result property="name"    column="name"    />
+        <result property="sort"    column="sort"    />
+    </resultMap>
+
+    <select id="selectBuildingList" parameterType="Building" resultMap="BuildingResult">
+        select building_id, name, sort from building
+        <where>
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+        </where>
+        order by sort
+    </select>
+
+    <select id="selectBuildingByBuildingId" parameterType="String" resultMap="BuildingResult">
+        select building_id, name, sort from building
+        where building_id = #{buildingId}
+    </select>
+
+    <insert id="insertBuilding" parameterType="Building">
+        insert into building
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="buildingId != null and buildingId != ''">building_id,</if>
+            <if test="name != null and name != ''">name,</if>
+            <if test="sort != null">sort,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="buildingId != null and buildingId != ''">#{buildingId},</if>
+            <if test="name != null and name != ''">#{name},</if>
+            <if test="sort != null">#{sort},</if>
+        </trim>
+    </insert>
+
+    <update id="updateBuilding" parameterType="Building">
+        update building
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="name != null and name != ''">name = #{name},</if>
+            <if test="sort != null">sort = #{sort},</if>
+        </trim>
+        where building_id = #{buildingId}
+    </update>
+
+    <delete id="deleteBuildingByBuildingIds" parameterType="String">
+        delete from building where building_id in
+        <foreach item="buildingId" collection="array" open="(" separator="," close=")">
+            #{buildingId}
+        </foreach>
+    </delete>
+</mapper>
