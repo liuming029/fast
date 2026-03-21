@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fast.take.mapper.RiderMapper">
+
+    <resultMap type="Rider" id="RiderResult">
+        <result property="riderId"    column="rider_id"    />
+        <result property="realName"    column="real_name"    />
+        <result property="idCard"    column="id_card"    />
+        <result property="phone"    column="phone"    />
+        <result property="studentId"    column="student_id"    />
+        <result property="studentCardImage"    column="student_card_image"    />
+        <result property="idCardImage"    column="id_card_image"    />
+        <result property="status"    column="status"    />
+        <result property="userId"    column="user_id"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="userName"    column="user_name"    />
+    </resultMap>
+
+    <select id="selectRiderList" parameterType="Rider" resultMap="RiderResult">
+        select r.rider_id, r.real_name, r.id_card, r.phone, r.student_id,
+               r.student_card_image, r.id_card_image, r.status, r.user_id, r.create_time,
+               u.user_name
+        from rider r
+        left join user u on r.user_id = u.user_id
+        <where>
+            <if test="realName != null  and realName != ''"> and r.real_name like concat('%', #{realName}, '%')</if>
+
+            <if test="studentId != null  and studentId != ''"> and r.student_id like concat('%', #{studentId}, '%')</if>
+            <if test="status != null  and status != ''"> and r.status = #{status}</if>
+            <if test="userId != null "> and r.user_id = #{userId}</if>
+            <if test="userName != null  and userName != ''"> and   u.user_name like concat('%', #{userName}, '%')</if>
+        </where>
+        order by r.create_time desc
+    </select>
+
+    <select id="selectRiderByRiderId" parameterType="String" resultMap="RiderResult">
+        select rider_id, real_name, id_card, phone, student_id, student_card_image, id_card_image, status, user_id, create_time from rider
+        where rider_id = #{riderId}
+    </select>
+
+    <insert id="insertRider" parameterType="Rider">
+        insert into rider
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="riderId != null and riderId != ''">rider_id,</if>
+            <if test="realName != null and realName != ''">real_name,</if>
+            <if test="idCard != null and idCard != ''">id_card,</if>
+            <if test="phone != null and phone != ''">phone,</if>
+            <if test="studentId != null and studentId != ''">student_id,</if>
+            <if test="studentCardImage != null and studentCardImage != ''">student_card_image,</if>
+            <if test="idCardImage != null and idCardImage != ''">id_card_image,</if>
+            <if test="status != null and status != ''">status,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="createTime != null">create_time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="riderId != null and riderId != ''">#{riderId},</if>
+            <if test="realName != null and realName != ''">#{realName},</if>
+            <if test="idCard != null and idCard != ''">#{idCard},</if>
+            <if test="phone != null and phone != ''">#{phone},</if>
+            <if test="studentId != null and studentId != ''">#{studentId},</if>
+            <if test="studentCardImage != null and studentCardImage != ''">#{studentCardImage},</if>
+            <if test="idCardImage != null and idCardImage != ''">#{idCardImage},</if>
+            <if test="status != null and status != ''">#{status},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="createTime != null">#{createTime},</if>
+        </trim>
+    </insert>
+
+    <update id="updateRider" parameterType="Rider">
+        update rider
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="realName != null and realName != ''">real_name = #{realName},</if>
+            <if test="idCard != null and idCard != ''">id_card = #{idCard},</if>
+            <if test="phone != null and phone != ''">phone = #{phone},</if>
+            <if test="studentId != null and studentId != ''">student_id = #{studentId},</if>
+            <if test="studentCardImage != null and studentCardImage != ''">student_card_image = #{studentCardImage},</if>
+            <if test="idCardImage != null and idCardImage != ''">id_card_image = #{idCardImage},</if>
+            <if test="status != null and status != ''">status = #{status},</if>
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+        </trim>
+        where rider_id = #{riderId}
+    </update>
+
+    <delete id="deleteRiderByRiderIds" parameterType="String">
+        delete from rider where rider_id in
+        <foreach item="riderId" collection="array" open="(" separator="," close=")">
+            #{riderId}
+        </foreach>
+    </delete>
+</mapper>
