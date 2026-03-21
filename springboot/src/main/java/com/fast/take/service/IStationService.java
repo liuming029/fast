@@ -27,4 +27,12 @@ public interface IStationService {
      * @return 是否新增成功
      */
     int insertStation(Station station);
+
+
+    /**
+     * 修改快递站点
+     * @param station 表单参数
+     * @return 是否修改成功
+     */
+    int updateStation(Station station);
 }

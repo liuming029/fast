@@ -26,3 +26,11 @@ export function addStation(data) {
         data: data
     })
 }
+// 修改快递站点
+export function updateStation(data) {
+    return request({
+        url: '/take/station',
+        method: 'put',
+        data: data
+    })
+}

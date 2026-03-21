@@ -39,10 +39,16 @@ public class StationServiceImpl implements IStationService {
         return stationMapper.insertStation(station);
     }
 
-
-
-
-
-
+    /**
+     * 修改快递站点
+     * @param station 表单参数
+     * @return 是否修改成功
+     */
+    @Override
+    public int updateStation(Station station) {
+        return stationMapper.updateStation(station);
     }
+
+
+}
 

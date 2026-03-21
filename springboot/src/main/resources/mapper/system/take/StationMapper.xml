@@ -10,15 +10,19 @@
         <result property="name" column="name"/>
         <result property="sort" column="sort"/>
     </resultMap>
+
     <!--查询快递站点列表, 并根据排序字段正序排序-->
     <select id="selectStationList" parameterType="Station" resultMap="StationResult">
         select station_id, name, sort
         from station
         <where>
-            <if test="name != null and name != ''"> and name like concat('%', #{name} ,'%') </if>
+            <if test="name != null and name != ''">
+                and name like concat('%', #{name} ,'%')
+            </if>
         </where>
         order by sort
-  </select>
+    </select>
+
     <!--获取快递站点详细信息-->
     <select id="selectStationByStationId" parameterType="String" resultMap="StationResult">
         select station_id, name, sort
@@ -27,7 +31,6 @@
     </select>
 
     <!--新增快递站点-->
-
     <insert id="insertStation" parameterType="Station">
         insert into station
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -41,5 +44,21 @@
             <if test="sort != null">#{sort},</if>
         </trim>
     </insert>
+
+    <!--修改快递站点（修复核心）-->
+    <update id="updateStation" parameterType="Station">
+        update station
+        <trim prefix="SET" suffixOverrides=",">
+            <!-- 修复1：MyBatis中用or而非||，空字符串判断加引号 -->
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="sort != null">
+                sort = #{sort},
+            </if>
+        </trim>
+        <!-- 修复2：where条件移出trim标签，Station_id改为小写station_id -->
+        where station_id = #{stationId}
+    </update>
 
 </mapper>

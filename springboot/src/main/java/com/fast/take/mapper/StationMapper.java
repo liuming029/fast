@@ -26,4 +26,6 @@ public interface StationMapper {
      * @return 是否新增成功
      */
     int insertStation(Station station);
+
+    int updateStation(Station station);
 }

@@ -45,4 +45,18 @@ public class StationController extends BaseController {
         return toAjax(stationService.insertStation(station));
     }
 
+
+    /**
+     * 修改快递站点
+     */
+    @PutMapping
+    public AjaxResult updateStation(@RequestBody Station station) {
+        return toAjax(stationService.updateStation(station));
+    }
+
+
+
+
+
+
 }
