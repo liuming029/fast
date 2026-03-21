@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fast.take.mapper.SizeMapper">
+
+    <resultMap type="Size" id="SizeResult">
+        <result property="sizeId"    column="size_id"    />
+        <result property="name"    column="name"    />
+        <result property="description"    column="description"    />
+        <result property="price"    column="price"    />
+    </resultMap>
+
+    <select id="selectSizeList" parameterType="Size" resultMap="SizeResult">
+        select size_id, name, description, price from size
+        <where>
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+        </where>
+        order by price
+    </select>
+
+    <select id="selectSizeBySizeId" parameterType="String" resultMap="SizeResult">
+        select size_id, name, description, price from size
+        where size_id = #{sizeId}
+    </select>
+
+    <insert id="insertSize" parameterType="Size">
+        insert into size
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="sizeId != null and sizeId != ''">size_id,</if>
+            <if test="name != null and name != ''">name,</if>
+            <if test="description != null and description != ''">description,</if>
+            <if test="price != null">price,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="sizeId != null and sizeId != ''">#{sizeId},</if>
+            <if test="name != null and name != ''">#{name},</if>
+            <if test="description != null and description != ''">#{description},</if>
+            <if test="price != null">#{price},</if>
+        </trim>
+    </insert>
+
+    <update id="updateSize" parameterType="Size">
+        update size
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="name != null and name != ''">name = #{name},</if>
+            <if test="description != null and description != ''">description = #{description},</if>
+            <if test="price != null">price = #{price},</if>
+        </trim>
+        where size_id = #{sizeId}
+    </update>
+
+    <delete id="deleteSizeBySizeIds" parameterType="String">
+        delete from size where size_id in
+        <foreach item="sizeId" collection="array" open="(" separator="," close=")">
+            #{sizeId}
+        </foreach>
+    </delete>
+</mapper>
