@@ -26,11 +26,20 @@ export function addStation(data) {
         data: data
     })
 }
-// 修改快递站点
+
+// 修改快递站点（修复：先闭合这个函数）
 export function updateStation(data) {
     return request({
         url: '/take/station',
         method: 'put',
         data: data
+    })
+} // ✅ 关键：把 updateStation 的闭合括号移到这里
+
+// 删除快递站点（修复：移到 updateStation 外部）
+export function deleteStation(stationId) {
+    return request({
+        url: '/take/station/' + stationId,
+        method: 'delete'
     })
 }

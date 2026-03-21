@@ -26,6 +26,16 @@ public interface StationMapper {
      * @return 是否新增成功
      */
     int insertStation(Station station);
-
+    /**
+     * 修改快递站点
+     * @param station 表单参数
+     * @return 是否修改成功
+     */
     int updateStation(Station station);
+    /**
+     * 删除快递站点
+     * @param stationIds 需要删除的快递站点主键集合
+     * @return 是否删除成功
+     */
+    int deleteStation(String[] stationIds);
 }

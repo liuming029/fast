@@ -21,6 +21,15 @@
       <el-col :span="1.5">
         <el-button type="success" plain icon="Edit" :disabled="single" @click="handleBatchUpdate">修改</el-button>
       </el-col>
+      <el-col :span="1.5">
+        <el-button type="danger"
+                   plain
+                   icon="Delete"
+                   :disabled="miltiple"
+                   @click="handleDelete"
+        >删除
+        </el-button>
+      </el-col>
     </el-row>
 
     <!-- 表格 -->
@@ -33,7 +42,7 @@
       <el-table-column label="操作" align="center">
         <template #default="scope">
           <el-button link type="primary" icon="Edit" @click="handleUpdate(scope.row)">修改</el-button>
-          <el-button link type="primary" icon="Delete" @click="">删除</el-button>
+          <el-button link type="primary" icon="Delete" @click="handleDelete(scope.row)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -43,6 +52,7 @@
                 v-model:page="queryParms.pageNum"
                 v-model:limit="queryParms.pageSize"
                 @pagination="getList"/>
+
 
     <!-- 弹窗 -->
     <vxe-modal :title="title" v-model="open" width="600px" show-maximize showFooter resize>
@@ -66,7 +76,9 @@
 import { onMounted, ref } from 'vue'
 import { listStation, addStation, getStation, updateStation } from "@/api/take/station.js";
 import Pagination from "@/components/Pagination/index.vue";
-import { ElMessage } from "element-plus";
+import {ElMessage, ElMessageBox} from "element-plus";
+import {deleteStation} from "../../../api/take/station.js";
+
 
 // 顶部搜索表单实例
 const queryRef = ref()
@@ -109,6 +121,33 @@ const handleUpdate = (row) => {
     title.value = "修改快递站点"
   })
 }
+
+//删除按钮
+
+const handleDelete = (row) => {
+  const stationIds = row.stationId || ids.value
+  ElMessageBox.confirm(
+      '是否确认删除该项数据?',
+      '系统提示',
+      {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning',
+      }
+  )
+      .then(() => {
+
+        deleteStation(stationIds).then(res =>{
+          ElMessage.success('删除成功')
+          getList()
+        })
+
+      })
+
+      }
+
+
+
 
 // 顶部批量修改按钮（兼容多选）
 const handleBatchUpdate = () => {

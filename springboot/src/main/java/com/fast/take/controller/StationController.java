@@ -53,7 +53,13 @@ public class StationController extends BaseController {
     public AjaxResult updateStation(@RequestBody Station station) {
         return toAjax(stationService.updateStation(station));
     }
-
+    /**
+     * 删除快递站点
+     */
+    @DeleteMapping("/{stationIds}")
+    public AjaxResult deleteStation(@PathVariable String[] stationIds) {
+        return toAjax(stationService.deleteStation(stationIds));
+    }
 
 
 

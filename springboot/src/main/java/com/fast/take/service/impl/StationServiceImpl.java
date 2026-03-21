@@ -49,6 +49,16 @@ public class StationServiceImpl implements IStationService {
         return stationMapper.updateStation(station);
     }
 
+    /**
+     * 删除快递站点
+     * @param stationIds 需要删除的快递站点主键集合
+     * @return 是否删除成功
+     */
+    @Override
+    public int deleteStation(String[] stationIds) {
+        return stationMapper.deleteStation(stationIds);
+    }
+
 
 }
 

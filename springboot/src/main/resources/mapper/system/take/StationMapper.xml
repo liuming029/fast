@@ -61,4 +61,13 @@
         where station_id = #{stationId}
     </update>
 
+    <!--删除快递站点-->
+    <delete id="deleteStation" parameterType="String">
+        delete from station where station_id in
+        <foreach collection="array" item="stationId" open="(" separator="," close=")">
+            #{stationId}
+        </foreach>
+    </delete>
+
+
 </mapper>
