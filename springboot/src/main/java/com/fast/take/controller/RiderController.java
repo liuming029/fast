@@ -71,4 +71,22 @@ public class RiderController extends BaseController {
     public AjaxResult remove(@PathVariable String[] riderIds) {
         return toAjax(riderService.deleteRiderByRiderIds(riderIds));
     }
+
+/**
+ * 查询用户有没有提交过审核，如果有返回认证状态，没有返回无
+ */
+    @GetMapping("/selectIsAuthStatus")
+    public AjaxResult selectIsAuthToStatus(){
+       String status= riderService.selectIsAuthToStatus();
+       return success(status);
+    }
+
+    /**
+     * 当用户重新提交认证后，将之前的认证信息删除
+     */
+    @DeleteMapping("/deleteOldAuth")
+    public AjaxResult deleteOldAuth(){
+        return toAjax(riderService.deleteOldAuth());
+    }
+
 }

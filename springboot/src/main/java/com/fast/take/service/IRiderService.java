@@ -50,4 +50,18 @@ public interface IRiderService
      * @return 结果
      */
     public int deleteRiderByRiderIds(String[] riderIds);
+
+    /**
+     * 查询用户有没有提交过审核，如果有返回认证状态，没有返回无
+     * @return 认证状态，没有返回无
+     */
+
+    String selectIsAuthToStatus();
+
+    /**
+     * 当用户重新提交认证后，将之前的认证信息删除
+     * @return 是否删除成功
+     */
+
+    int deleteOldAuth();
 }

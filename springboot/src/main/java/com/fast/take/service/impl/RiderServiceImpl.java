@@ -90,4 +90,33 @@ public class RiderServiceImpl implements IRiderService
     {
         return riderMapper.deleteRiderByRiderIds(riderIds);
     }
+
+
+    /**
+     * 查询用户有没有提交过审核, 如果有就返回认证状态, 没有就返回无
+     * @return 认证状态, 没有就返回无
+     */
+    @Override
+    public String selectIsAuthToStatus() {
+        Long userId = getUserId();
+        String status = riderMapper.selectIsAuthToStatus(userId);
+        return status != null ? status : "无" ;
+    }
+
+    /**
+     * 当用户重新提交认证后，将之前的认证信息删除
+     * @return 是否删除成功
+     */
+
+
+    @Override
+    public int deleteOldAuth() {
+        //查询之前的认证ID
+        String riderId = riderMapper.selectOldAuthRiderIdByUserId(getUserId());
+        String[] rideIds = new String[]{
+                riderId
+        };
+        //删除之前的认证ID
+        return riderMapper.deleteRiderByRiderIds(rideIds);
+    }
 }

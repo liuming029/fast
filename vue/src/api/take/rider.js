@@ -42,3 +42,18 @@ export function delRider(riderId) {
         method: 'delete'
     })
 }
+// 查询用户有没有提交过审核，如果有返回认证状态，没有返回无
+export function selectIsAuthToStatus() {
+    return request({
+        url: '/take/rider/selectIsAuthStatus' ,
+        method: 'get'
+    })
+}
+
+// 当用户重新提交认证后, 将之前的认证信息删除
+export function deleteOldAuth() {
+    return request({
+        url: '/take/rider/deleteOldAuth',
+        method: 'delete'
+    })
+}

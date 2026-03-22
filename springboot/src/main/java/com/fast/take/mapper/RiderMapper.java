@@ -52,4 +52,20 @@ public interface RiderMapper
      * @return 结果
      */
     public int deleteRiderByRiderIds(String[] riderIds);
+
+
+    /**
+     * 查询用户有没有提交过审核，如果有返回认证状态，没有返回无
+     * @param userId 当前用户Id
+     * @return 认证状态，没有返回无
+     */
+    String selectIsAuthToStatus(Long userId);
+
+
+    /**
+     * 查询之前的认证ID
+     * @param userId 用户ID
+     * @return 认证ID
+     */
+    String selectOldAuthRiderIdByUserId(Long userId);
 }

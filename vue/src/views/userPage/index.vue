@@ -25,6 +25,11 @@
                         </el-menu>
                     </div>
                 </div>
+              <div>
+              <el-button @click="router.push('/user/auth')">配送员认证</el-button>
+            </div>
+
+
                 <div class="header-right">
                     <div v-if="!nickName" class="auth-buttons">
                         <el-button @click="router.push('/login')">登录</el-button>

@@ -39,6 +39,19 @@
         select rider_id, real_name, id_card, phone, student_id, student_card_image, id_card_image, status, user_id, create_time from rider
         where rider_id = #{riderId}
     </select>
+    <!--查询用户有没有提交过审核, 如果有就返回认证状态, 没有就返回无-->
+    <select id="selectIsAuthToStatus" resultType="java.lang.String">
+        select status
+        from rider
+        where user_id = #{userId}
+    </select>
+
+    <!--查询之前的认证ID-->
+    <select id="selectOldAuthRiderIdByUserId" resultType="java.lang.String">
+        select rider_id
+        from rider
+        where user_id = #{userId}
+    </select>
 
     <insert id="insertRider" parameterType="Rider">
         insert into rider

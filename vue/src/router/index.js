@@ -51,7 +51,14 @@ export const constantRoutes = [
         path: 'self',
         component: () => import('@/views/system/user/profile'),
         hidden: true
-      }
+      },
+
+
+      {
+        path: 'auth',
+        component: () => import('@/views/userPage/auth'),
+        hidden: true
+      },
     ]
   },
   {
