@@ -1,6 +1,7 @@
 package com.fast.system.mapper;
 
 import com.fast.system.domain.UserRole;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -34,4 +35,17 @@ public interface UserRoleMapper
      * @return 结果
      */
     public int batchUserRole(List<UserRole> userRoleList);
+
+    /**
+     * 将用户的角色修改为对应的角色
+     * @param roleId 角色ID
+     * @param userId 要修改角色的 用户ID
+     * @return 是否修改成功
+     */
+    int updateUserRoleByRoleId(Long roleId, Long userId);
+
+
+
+
+
 }

@@ -177,7 +177,7 @@ const prevStep = () =>{
 const resetAuth = () =>{
   //删除之前的认证信息
   deleteOldAuth().then(res =>{
-    getAuthStatus
+    getAuthStatus()
   })
 }
 

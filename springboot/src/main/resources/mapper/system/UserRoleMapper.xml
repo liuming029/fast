@@ -26,4 +26,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			(#{item.userId},#{item.roleId})
 		</foreach>
 	</insert>
+
+	<!--将用户的角色修改为对应的角色-->
+	<update id="updateUserRoleByRoleId">
+		update user_role
+		set role_id = #{roleId}
+		where user_id = #{userId}
+	</update>
 </mapper>

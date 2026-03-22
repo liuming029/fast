@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import com.fast.system.mapper.UserRoleMapper;
+import com.fast.take.constants.RoleIdConstants;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 import com.fast.take.mapper.RiderMapper;
@@ -27,6 +29,7 @@ public class RiderServiceImpl implements IRiderService
 {
     @Resource
     private RiderMapper riderMapper;
+
 
     /**
      * 查询配送员
@@ -67,6 +70,10 @@ public class RiderServiceImpl implements IRiderService
         return riderMapper.insertRider(rider);
     }
 
+
+    @Resource
+    private UserRoleMapper userRoleMapper;
+
     /**
      * 修改配送员
      *
@@ -74,8 +81,12 @@ public class RiderServiceImpl implements IRiderService
      * @return 结果
      */
     @Override
-    public int updateRider(Rider rider)
-    {
+    public int updateRider(Rider rider) {
+        if (rider.getStatus().equals("已通过")) {
+            Long userId = rider.getUserId();
+            //将用户的角色修改为配送员
+            userRoleMapper.updateUserRoleByRoleId(RoleIdConstants.RIDER_ROLE_ID, userId);
+        }
         return riderMapper.updateRider(rider);
     }
 

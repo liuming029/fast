@@ -100,9 +100,14 @@
 
       <el-table-column label="认证用户" align="center" prop="userName" />
       <el-table-column label="认证提交时间" align="center" prop="createTime" />
-      <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
+      <el-table-column label="操作" align="center" class-name="small-padding fixed-width"width="200">
         <template #default="scope">
-<!--          <el-button link type="primary" icon="Edit" @click="handleUpdate(scope.row)">修改</el-button>-->
+          <el-button v-if="scope.row.status=== '审核中'"  type="success"  @click="handleApproved(scope.row)">
+            审核通过
+          </el-button>
+          <el-button v-if="scope.row.status=== '审核中'" type="danger"  @click="handleFail(scope.row)">
+          不通过
+          </el-button>
 <!--          <el-button link type="primary" icon="Delete" @click="handleDelete(scope.row)">删除</el-button>-->
         </template>
       </el-table-column>
@@ -168,6 +173,44 @@ const total = ref(0)
 const title = ref("")
 const selectedRow = ref(null)
 const tableRef = ref()
+
+//审核通过
+const handleApproved = (row) => {
+  const item = {
+    riderId: row.riderId,
+    userId: row.userId,
+    status: '已通过'
+  }
+  ElMessageBox.confirm('是否确认审核通过？', '系统提示', {
+    confirmButtonText: '确定',
+    cancelButtonText: '取消',
+    type: 'warning'
+  }).then(() => {
+    updateRider(item).then(res => {
+      ElMessage.success("审核完成")
+      getList()
+    })
+  }).catch(() => {})
+}
+
+//审核不通过
+const handleFail = (row) => {
+  const item = {
+    riderId: row.riderId,
+    status: '已拒绝'
+  }
+  ElMessageBox.confirm('是否确认审核不通过？', '系统提示', {
+    confirmButtonText: '确定',
+    cancelButtonText: '取消',
+    type: 'warning'
+  }).then(() => {
+    updateRider(item).then(res => {
+      ElMessage.success("审核完成")
+      getList()
+    })
+  }).catch(() => {})
+}
+
 
 const data = reactive({
   form: {},
@@ -241,6 +284,7 @@ const getList = () => {
     total.value = response.total
     loading.value = false
   })
+
 }
 
 // 取消按钮
