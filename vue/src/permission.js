@@ -40,7 +40,8 @@ router.beforeEach((to, from, next) => {
               if (userRoleName === 'admin') {
                 // admin角色跳转到默认路径
                 redirectPath = "/index"
-              } else if (userRoleName === 'user') {
+              }
+              else if (userRoleName === 'user' || userRoleName === 'rider') {
                 // 用户角色跳转到/dashboard路径
                 redirectPath = "/user/home"
               }
