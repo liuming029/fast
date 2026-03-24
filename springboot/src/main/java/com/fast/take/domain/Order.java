@@ -53,5 +53,19 @@ public class Order
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
+    //包裹规格
+    private String size;
+
+    //宿舍楼
+    private String building;
+
+    //快递站点
+    private String station;
+
+    //快递员
+    private String rider;
+
+    //下单用户
+    private String userName;
 
 }

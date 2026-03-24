@@ -2,50 +2,50 @@
   <div class="app-container">
     <!-- 顶部搜索 -->
     <el-form :model="queryParams" ref="queryRef" :inline="true" v-show="showSearch" label-width="68px">
-      <el-form-item label="包裹规格ID" prop="sizeId">
+      <el-form-item label="包裹规格" prop="size">
         <el-input
-            v-model="queryParams.sizeId"
-            placeholder="请输入包裹规格ID"
+            v-model="queryParams.size"
+            placeholder="请输入包裹规格"
             clearable
             @keyup.enter="handleQuery"
         />
       </el-form-item>
-      <el-form-item label="宿舍楼ID" prop="buildingId">
+      <el-form-item label="宿舍楼" prop="building">
         <el-input
-            v-model="queryParams.buildingId"
-            placeholder="请输入宿舍楼ID"
+            v-model="queryParams.building"
+            placeholder="请输入宿舍楼"
             clearable
             @keyup.enter="handleQuery"
         />
       </el-form-item>
-      <el-form-item label="快递站点ID" prop="stationId">
+      <el-form-item label="快递站点" prop="station">
         <el-input
-            v-model="queryParams.stationId"
-            placeholder="请输入快递站点ID"
+            v-model="queryParams.station"
+            placeholder="请输入快递站点"
             clearable
             @keyup.enter="handleQuery"
         />
       </el-form-item>
       <el-form-item label="状态" prop="status">
+        <el-select v-model="queryParams.status" style="width: 200px;" placeholder="请选择状态">
+          <el-option label="待接单" value="待接单" />
+          <el-option label="配送中" value="配送中" />
+          <el-option label="已完成" value="已完成" />
+          <el-option label="已取消" value="已取消" />
+        </el-select>
+      </el-form-item>
+      <el-form-item label="下单用户" prop="userName">
         <el-input
-            v-model="queryParams.status"
-            placeholder="请输入状态"
+            v-model="queryParams.userName"
+            placeholder="请输入下单用户"
             clearable
             @keyup.enter="handleQuery"
         />
       </el-form-item>
-      <el-form-item label="下单用户ID" prop="userId">
+      <el-form-item label="配送员" prop="rider">
         <el-input
-            v-model="queryParams.userId"
-            placeholder="请输入下单用户ID"
-            clearable
-            @keyup.enter="handleQuery"
-        />
-      </el-form-item>
-      <el-form-item label="配送员ID" prop="riderId">
-        <el-input
-            v-model="queryParams.riderId"
-            placeholder="请输入配送员ID"
+            v-model="queryParams.rider"
+            placeholder="请输入配送员"
             clearable
             @keyup.enter="handleQuery"
         />
@@ -58,14 +58,14 @@
 
     <!-- 顶部按钮 -->
     <el-row :gutter="10" class="mb8">
-      <el-col :span="1.5">
-        <el-button
-            type="primary"
-            plain
-            icon="Plus"
-            @click="handleAdd"
-        >新增</el-button>
-      </el-col>
+<!--      <el-col :span="1.5">-->
+<!--        <el-button-->
+<!--            type="primary"-->
+<!--            plain-->
+<!--            icon="Plus"-->
+<!--            @click="handleAdd"-->
+<!--        >新增</el-button>-->
+<!--      </el-col>-->
       <el-col :span="1.5">
         <el-button
             type="success"
@@ -75,15 +75,15 @@
             @click="handleUpdate"
         >修改</el-button>
       </el-col>
-      <el-col :span="1.5">
-        <el-button
-            type="danger"
-            plain
-            icon="Delete"
-            :disabled="multiple"
-            @click="handleDelete"
-        >删除</el-button>
-      </el-col>
+<!--      <el-col :span="1.5">-->
+<!--        <el-button-->
+<!--            type="danger"-->
+<!--            plain-->
+<!--            icon="Delete"-->
+<!--            :disabled="multiple"-->
+<!--            @click="handleDelete"-->
+<!--        >删除</el-button>-->
+<!--      </el-col>-->
     </el-row>
 
     <!-- 表格 -->
@@ -92,20 +92,27 @@
       <el-table-column type="selection" width="55" align="center" />
       <el-table-column label="序号" align="center" type="index" :index="indexMethod" />
       <el-table-column label="取件码" align="center" prop="code" />
-      <el-table-column label="包裹规格ID" align="center" prop="sizeId" />
-      <el-table-column label="宿舍楼ID" align="center" prop="buildingId" />
-      <el-table-column label="快递站点ID" align="center" prop="stationId" />
+      <el-table-column label="包裹规格" align="center" prop="size" />
+      <el-table-column label="宿舍楼" align="center" prop="building" />
+      <el-table-column label="快递站点" align="center" prop="station" />
       <el-table-column label="寝室号/联系人" align="center" prop="room" />
       <el-table-column label="总价" align="center" prop="totalPrice" />
-      <el-table-column label="状态" align="center" prop="status" />
+      <el-table-column label="状态" align="center" prop="status" >
+        <template #default ="scope">
+          <el-tag type="warning" v-if="scope.row.status==='待接单'">{{scope.row.status}}</el-tag>
+          <el-tag type="primary" v-if="scope.row.status==='配送中'">{{scope.row.status}}</el-tag>
+          <el-tag type="success" v-if="scope.row.status==='已完成'">{{scope.row.status}}</el-tag>
+          <el-tag type="danger" v-if="scope.row.status==='已取消'">{{scope.row.status}}</el-tag>
+        </template>
+      </el-table-column>
       <el-table-column label="备注" align="center" prop="remark" />
-      <el-table-column label="下单用户ID" align="center" prop="userId" />
-      <el-table-column label="配送员ID" align="center" prop="riderId" />
+      <el-table-column label="下单用户" align="center" prop="userName" />
+      <el-table-column label="配送员" align="center" prop="rider" />
       <el-table-column label="提交时间" align="center" prop="createTime" />
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template #default="scope">
           <el-button link type="primary" icon="Edit" @click="handleUpdate(scope.row)">修改</el-button>
-          <el-button link type="primary" icon="Delete" @click="handleDelete(scope.row)">删除</el-button>
+<!--          <el-button link type="primary" icon="Delete" @click="handleDelete(scope.row)">删除</el-button>-->
         </template>
       </el-table-column>
     </el-table>
@@ -191,6 +198,11 @@ const data = reactive({
     status: null,
     userId: null,
     riderId: null,
+    size:null,
+    buliding:null,
+    station:null,
+    rider:null,
+    userName: null,
   },
   rules: {
     orderId: [

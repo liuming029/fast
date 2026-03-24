@@ -16,21 +16,53 @@
         <result property="remark"    column="remark"    />
         <result property="userId"    column="user_id"    />
         <result property="riderId"    column="rider_id"    />
+        <result property="size"    column="size"    />
+        <result property="building"    column="building"    />
+        <result property="station"    column="station"    />
+        <result property="rider"    column="rider"    />
+        <result property="userName"    column="user_name"    />
         <result property="createTime"    column="create_time"    />
     </resultMap>
 
     <select id="selectOrderList" parameterType="Order" resultMap="OrderResult">
-        select order_id, code, size_id, building_id, station_id, room,
-        total_price, status, remark, user_id, rider_id, create_time
-        from `order`
+        select o.order_id, o.code, o.size_id, o.building_id, o.station_id, o.room,
+        o.total_price, o.status, o.remark, o.user_id, o.rider_id, o.create_time,
+        s.name as size,
+        b.name as building,
+        sta.name as station,
+        r.real_name as rider,
+        u.user_name
+        from `order` o
+        left join size s on o.size_id = s.size_id
+        left join building b on o.building_id = b.building_id
+        left join station sta on o.station_id = sta.station_id
+        left join rider r on o.rider_id = r.rider_id
+        left join user u on o.user_id = u.user_id
+
         <where>
-            <if test="sizeId != null  and sizeId != ''"> and size_id = #{sizeId}</if>
-            <if test="buildingId != null  and buildingId != ''"> and building_id = #{buildingId}</if>
-            <if test="stationId != null  and stationId != ''"> and station_id = #{stationId}</if>
-            <if test="status != null  and status != ''"> and status = #{status}</if>
-            <if test="userId != null "> and user_id = #{userId}</if>
-            <if test="riderId != null  and riderId != ''"> and rider_id = #{riderId}</if>
+            <if test="sizeId != null  and sizeId != ''"> and o.size_id = #{sizeId}</if>
+            <if test="buildingId != null  and buildingId != ''"> and o.building_id = #{buildingId}</if>
+            <if test="stationId != null  and stationId != ''"> and o.station_id = #{stationId}</if>
+            <if test="status != null  and status != ''"> and o.status = #{status}</if>
+            <if test="userId != null "> and o.user_id = #{userId}</if>
+            <if test="riderId != null  and riderId != ''"> and o.rider_id = #{riderId}</if>
+            <if test="size != null  and size != ''">
+                and s.name like concat('%', #{size}, '%')
+            </if>
+            <if test="building != null  and building != ''">
+                and b.name like concat('%', #{building}, '%')
+            </if>
+            <if test="station != null  and station != ''">
+                and sta.name like concat('%', #{station}, '%')
+            </if>
+            <if test="rider != null  and rider != ''">
+                and r.real_name like concat('%', #{rider}, '%')
+            </if>
+            <if test="userName != null  and userName != ''">
+                and u.user_name like concat('%', #{userName}, '%')
+            </if>
         </where>
+        order by o.create_time desc
     </select>
 
     <select id="selectOrderByOrderId" parameterType="String" resultMap="OrderResult">
