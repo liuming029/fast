@@ -14,6 +14,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="createTime"   column="create_time"  />
 		<result property="roleId"       column="role_id"        />
 		<result property="roleName"     column="role_name"      />
+		<result property="balance"     column="balance"      />
     </resultMap>
 
 	<sql id="selectUserVo">
@@ -47,7 +48,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
 	<select id="selectUserById" parameterType="Long" resultMap="UserResult">
-		select u.user_id, u.user_name, u.nick_name, u.avatar, u.password, u.sex, u.create_time,
+		select u.user_id, u.user_name, u.nick_name, u.avatar, u.password, u.sex, u.create_time, u.balance,
 			   r.role_id, r.role_name, r.role_sort
 		from user u
 				 left join user_role ur on u.user_id = ur.user_id
@@ -82,6 +83,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  			<if test="sex != null and sex != ''">sex = #{sex},</if>
  			<if test="avatar != null and avatar != ''">avatar = #{avatar},</if>
  			<if test="password != null and password != ''">password = #{password},</if>
+ 			<if test="balance != null and balance != ''">password = #{balance},</if>
  		</set>
  		where user_id = #{userId}
 	</update>

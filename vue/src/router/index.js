@@ -48,6 +48,11 @@ export const constantRoutes = [
         hidden: true
       },
       {
+        path: 'recharge',
+        component: () => import('@/views/userPage/recharge'),
+        hidden: true
+      },
+      {
         path: 'self',
         component: () => import('@/views/system/user/profile'),
         hidden: true

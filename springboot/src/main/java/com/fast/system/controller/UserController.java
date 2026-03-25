@@ -8,6 +8,7 @@ import com.fast.system.service.IUserService;
 import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -64,4 +65,15 @@ public class UserController extends BaseController {
     public AjaxResult remove(@PathVariable Long[] userIds) {
         return toAjax(userService.deleteUserByIds(userIds));
     }
+
+
+    /**
+     * 查询当前用户的账户余额
+     */
+    @GetMapping("/selectMyBalance")
+    public AjaxResult selectMyBalance(){
+        BigDecimal balance = userService.selectUserById(getUserId()).getBalance();
+        return success(balance);
+    }
+
 }

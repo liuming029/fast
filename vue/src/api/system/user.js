@@ -72,3 +72,11 @@ export function updateUserPwd(oldPassword, newPassword) {
     data: data
   })
 }
+
+//查询当前用户的账户余额
+export function selectMyBalance() {
+  return request({
+    url: '/system/user/selectMyBalance',
+    method: 'get'
+  })
+}

@@ -16,6 +16,13 @@
                                 </el-icon>
                                 首页
                             </el-menu-item>
+                          <el-menu-item index="/user/recharge">
+                            <el-icon>
+
+                              <Discount/>
+                            </el-icon>
+                            账户充值
+                          </el-menu-item>
                             <el-menu-item index="/user/self">
                                 <el-icon>
                                     <UserFilled/>
@@ -70,7 +77,7 @@ import {useRoute, useRouter} from 'vue-router'
 import {getUser} from "@/api/system/user"
 import useUserStore from "@/store/modules/userStore.js";
 import {ElMessageBox} from "element-plus";
-import {HomeFilled, UserFilled} from "@element-plus/icons-vue";
+import {Discount, HomeFilled, UserFilled} from "@element-plus/icons-vue";
 
 const userStore = useUserStore()
 const route = useRoute()
