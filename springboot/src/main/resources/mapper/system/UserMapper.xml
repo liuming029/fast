@@ -103,4 +103,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         </foreach>
  	</delete>
 
+<!--	更新账户余额-->
+	<update id="updateUserBalance">
+		update user
+		set balance = #{newBalance}
+		where user_id = #{userId}
+	</update>
+
 </mapper>

@@ -80,3 +80,10 @@ export function selectMyBalance() {
     method: 'get'
   })
 }
+// 账户充值
+export function recharge(amount) {
+  return request({
+    url: `/system/user/recharge/${amount}`,
+    method: 'put'
+  })
+}

@@ -2,6 +2,7 @@ package com.fast.system.service;
 
 import com.fast.system.domain.User;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -84,4 +85,12 @@ public interface IUserService
      * @return 结果
      */
     public int deleteUserByIds(Long[] userIds);
+
+    /**
+     * 更新账户余额
+     * @param newBalance 修改后的账户余额
+     * @param userId 用户ID
+     * @return 是否更新成功
+     */
+    int updateUserBalance(BigDecimal newBalance, Long userId);
 }

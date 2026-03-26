@@ -3,7 +3,6 @@ package com.fast.system.controller;
 import com.fast.system.domain.AjaxResult;
 import com.fast.system.domain.TableDataInfo;
 import com.fast.system.domain.User;
-import com.fast.system.service.IRoleService;
 import com.fast.system.service.IUserService;
 import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.*;
@@ -74,6 +73,21 @@ public class UserController extends BaseController {
     public AjaxResult selectMyBalance(){
         BigDecimal balance = userService.selectUserById(getUserId()).getBalance();
         return success(balance);
+    }
+
+    /**
+     * 充值接口
+     */
+    @PutMapping("/recharge/{amount}")
+public AjaxResult recharge(@PathVariable BigDecimal amount){
+        //用户充值之前的账户余额
+        BigDecimal oldBalance = userService.selectUserById(getUserId()).getBalance();
+        //计算充值后的余额
+        BigDecimal newBalance = oldBalance.add(amount);
+        //更新账户余额
+        return toAjax(userService.updateUserBalance(newBalance,getUserId()));
+
+
     }
 
 }

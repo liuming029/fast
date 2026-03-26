@@ -1,181 +1,101 @@
 <template>
-<div class="recharge-container">
-  <div class="main-content">
-       <!-- 显示余额   -->
-    <div class="balance-card">
-      <div class="balance-info">
-        <span class="label">
-          当前余额
-        </span>
-        <div class="amount-row">
-          <span class="symbol">
-            ¥
-          </span>
-          <span class="num">
-            {{balance.toFixed(2)}}
-          </span>
+  <div class="recharge-container">
+    <div class="main-content">
+      <!-- 显示余额 -->
+      <div class="balance-card">
+        <div class="balance-info">
+          <span class="label">当前余额</span>
+          <div class="amount-row">
+            <span class="symbol">¥</span>
+            <span class="num">{{ balance.toFixed(2) }}</span>
+          </div>
         </div>
         <div class="card-decoration">
-          <el-icon><Wallet/></el-icon>
+          <el-icon>
+            <Wallet/>
+          </el-icon>
         </div>
       </div>
-    </div>
 
-     <!--充值面板-->
-    <div class="action-panel">
-      <div class="section-title">充值金额</div>
-      <div class="amount-grid">
-        <div v-for="amount in presetAmounts "
-             :key="amount"
-             class="amount-item"
-             :class="{active: selectedAmount ===amount}"
-             @click="selectPreset(amount)"
-        >
-          <span class="val">{{amount}}元 </span>
-
-        </div>
-         <!--自定义金额-->
-        <div class="amount-item custom-input":class="{active:isCustAmount }">
-          <el-input-number v-model="customVal"
-                           :min="1"
-                           :controls="false"
-                           placeholder="自定义"
-                           @focus="handleCustomFocus"
-                           class="input-box"
+      <!-- 充值面板 -->
+      <div class="action-panel">
+        <div class="section-title">充值金额</div>
+        <div class="amount-grid">
+          <div v-for="amount in presetAmounts"
+               :key="amount"
+               class="amount-item"
+               :class="{ active: selectedAmount === amount }"
+               @click="selectPreset(amount)"
           >
-            <span class="suffix" v-if="!customVal">元</span>
-          </el-input-number>
-        </div>
-      </div>
-   <!--支付方式 -->
-      <div class="section-title mt-30">支付方式</div>
-      <div class="payment-methods">
-        <div v-for="method in paymentMethodsList"
-             :key="method.value"
-             class="pay-item"
-             :class="{active:paymentMethod=== method.value}"
-             @click="paymentMethod = method.value"
-        >
-          <div class="icon-box">
-            <SvgIcon  style="font-size: 35px" icon-class="微信" v-if="method.value ==='wechat'" />
-            <SvgIcon style="font-size: 35px" icon-class="支付宝" v-if="method.value === 'alipay'"/>
-            <SvgIcon style="font-size: 35px" icon-class="银行卡" v-if="method.value === 'card'"/>
-          </div>
-          <div class="pay-info">
-            <div class="name">{{method.name}}</div>
-            <div class="desc">{{method.desc}}</div>
-          </div>
-          <div class="radio-check">
-            <el-icon v-if=" paymentMethod === method.value "><Select/></el-icon>
+            <span class="val">{{ amount }}元</span>
           </div>
 
+          <!-- 自定义金额 -->
+          <div class="amount-item custom-input" :class="{ active: isCustomAmount }">
+            <el-input-number v-model="customVal"
+                             :min="1"
+                             :controls="false"
+                             placeholder="自定义"
+                             @focus="handleCustomFocus"
+                             class="input-box"
+            >
+              <span class="suffix" v-if="!customVal">元</span>
+            </el-input-number>
+          </div>
+        </div>
 
+        <!-- 支付方式 -->
+        <div class="section-title mt-30">支付方式</div>
+        <div class="payment-methods">
+          <div v-for="method in paymentMethodsList"
+               :key="method.value"
+               class="pay-item"
+               :class="{ active: paymentMethod === method.value }"
+               @click="paymentMethod = method.value"
+          >
+            <div class="icon-box">
+              <SvgIcon style="font-size: 35px" icon-class="微信" v-if="method.value === 'wechat'"/>
+              <SvgIcon style="font-size: 35px" icon-class="支付宝" v-if="method.value === 'alipay'"/>
+              <SvgIcon style="font-size: 35px" icon-class="银行卡" v-if="method.value === 'card'"/>
+            </div>
+            <div class="pay-info">
+              <div class="name">{{ method.name }}</div>
+              <div class="desc">{{ method.desc }}</div>
+            </div>
+            <div class="radio-check">
+              <el-icon v-if="paymentMethod === method.value"><Select/></el-icon>
+            </div>
+          </div>
+        </div>
+
+        <!-- 提交区域 -->
+        <div class="submit-area">
+          <div class="total-text">
+            实付金额: <span class="price">¥{{ finalPayAmount }}</span>
+          </div>
+          <el-button type="primary"
+                     size="large"
+                     class="pay-btn"
+                     :loading="loading"
+                     @click="handleRecharge"
+          >
+            立即充值
+          </el-button>
         </div>
 
       </div>
-<!--      提交 区域-->
-      <div class="submit-area">
-        <div class="total-text">
-          实付金额 :<span class="price"> ¥{{finalPayAmount}}</span>
-        </div>
-        <el-button type="primary"
-                   size="large"
-                   class="pay-btn"
-                   :loading="loding"
-                   @click="handleRecharge"
-                   >
-          立即充值
-        </el-button>
 
-      </div>
+
     </div>
-
   </div>
-
-
-</div>
 </template>
 
 <script setup>
-import { onMounted,ref } from 'vue'
-import {selectMyBalance} from "@/api/system/user.js";
-import {Wallet} from "@element-plus/icons-vue";
-import SvgIcon from '@/components/SvgIcon/index.vue'
-import {ElMessage} from "element-plus";
-//金额选项
-
-const presetAmounts =[10,30,50,100,200]
-
-//自定义金额
-
-const customVal=ref(null)
-
-//当前选中的预设金额
-
-const selectedAmount = ref(50)
-
-//加载状态
-
-const loading = ref(false)
-
-//计算最终支付金额
-
-const finalPayAmount = computed(( )=>{
-  if (isCustAmount.value){
-    return customVal.value ? Number(customVal.value).toFixed(2) :'0.00'
-  }
-  return  selectedAmount.value.toFixed(2)
-})
-
-//当前是否使用自定义金额
-
-const isCustAmount  = ref(false)
-
-//当前选中的支付方式
-
-const paymentMethod =ref('wechat')
-
-
-//账户余额
-const balance = ref(0)
-
-//选择自定义金额输入
-
-const handleCustomFocus = () => {
-  isCustAmount.value = true
-  selectedAmount.value = null
-  
-}
-
-  //立即充值按钮
-
-const handleRecharge = () => {
-  const amount = parseFloat(finalPayAmount.value)
-  if (amount<=0){
-    ElMessage.warning('请输入有效的充值金额')
-    return
-  }
-
-
-  loading.value =true
-  //调用充值API
-  loading.value =false
-}
-
-//选择预设金额
-
-const selectPreset = (val) => {
-  isCustAmount.value = false
-  selectedAmount.value = val
-  customVal.value = null
-}
-
-//查询账户余额
-
-const getMyBalance = ()=>{
-  selectMyBalance().then(res =>{
-  balance.value = res.data})
-}
+import { onMounted, ref, computed } from 'vue'
+import { selectMyBalance, recharge } from "@/api/system/user.js";
+import { Select, Wallet } from "@element-plus/icons-vue";
+import SvgIcon from "@/components/SvgIcon/index.vue";
+import { ElMessage } from "element-plus";
 
 // 支付方式列表配置
 const paymentMethodsList = ref([
@@ -196,12 +116,68 @@ const paymentMethodsList = ref([
   }
 ])
 
-onMounted(()=>{
+//加载状态
+const loading = ref(false)
 
+//金额选项
+const presetAmounts = [10, 30, 50, 100, 200]
+//自定义金额
+const customVal = ref(null)
+//当前选中的预设金额
+const selectedAmount = ref(50)
+//当前是否正在使用自定义金额
+const isCustomAmount = ref(false)
+//当前选中的支付方式
+const paymentMethod = ref('wechat')
+
+//账户余额
+const balance = ref(0)
+
+//计算最终支付金额
+const finalPayAmount = computed(() => {
+  if (isCustomAmount.value) {
+    return customVal.value ? Number(customVal.value).toFixed(2) : '0.00'
+  }
+  return selectedAmount.value.toFixed(2)
+})
+
+//选择预设金额
+const selectPreset = (val) => {
+  isCustomAmount.value = false
+  selectedAmount.value = val
+  customVal.value = null
+}
+
+//选择自定义金额输入
+const handleCustomFocus = () => {
+  isCustomAmount.value = true
+  selectedAmount.value = null
+}
+
+//查询账户余额
+const getMyBalance = () => {
+  selectMyBalance().then(res => {
+    balance.value = res.data
+  })
+}
+
+//充值按钮
+const handleRecharge = () => {
+  const amount = parseFloat(finalPayAmount.value)
+  if (amount <= 0) {
+    ElMessage.warning('请输入有效的充值金额')
+    return
+  }
+  loading.value = true
+  //调用充值api
+  recharge(amount).then(res => {
     getMyBalance()
+    loading.value = false
+  })
+}
 
-
-
+onMounted(() => {
+  getMyBalance()
 })
 </script>
 
