@@ -53,6 +53,11 @@ export const constantRoutes = [
         hidden: true
       },
       {
+        path: 'takeout',
+        component: () => import('@/views/userPage/takeout'),
+        hidden: true
+      },
+      {
         path: 'self',
         component: () => import('@/views/system/user/profile'),
         hidden: true
