@@ -2,11 +2,13 @@
   <div class="takeout-container">
     <div class="main-layout">
       <div class="form-section">
-        <el-form :model ="form" :rules="rulers" ref="formRef" label-position="top">
-          <!-- 包裹信息-->
+        <el-form :model="form" :rules="rules" ref="formRef" label-position="top">
+          <!-- 包裹信息  -->
           <div class="form-card">
             <div class="card-title">
-              <el-icon><Box/></el-icon>
+              <el-icon>
+                <Box/>
+              </el-icon>
               包裹信息
             </div>
             <el-row :gutter="20">
@@ -16,14 +18,14 @@
                     <el-option v-for="station in stationList"
                                :key="station.stationId"
                                :label="station.name"
-                               :value="station.stationId"/>
+                               :value="station.stationId"
+                    />
                   </el-select>
-
                 </el-form-item>
               </el-col>
               <el-col :span="12">
                 <el-form-item label="取件码" prop="code">
-                  <el-input v-model="form.code" placeholder="例:3-2056 或 A123" size="large"></el-input>
+                  <el-input v-model="form.code" placeholder="例: 3-2056 或 A123" size="large"/>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -33,26 +35,29 @@
                 <div v-for="item in sizeList"
                      :key="item.sizeId"
                      class="size-card"
-                     :class="{active:form.sizeId === item.sizeId}"
-                     @click="form.sizeId = item.sizeId">
+                     :class="{ active: form.sizeId === item.sizeId }"
+                     @click="form.sizeId = item.sizeId"
+                >
                   <div class="size-icon">📦</div>
                   <div>
-                    <div class="size-name">{{ item.name}}</div>
-                    <div class="size-desc">{{ item.description}}</div>
+                    <div class="size-name">{{ item.name }}</div>
+                    <div class="size-desc">{{ item.description }}</div>
                   </div>
-                  <div class="size-price">+¥{{item.price}}</div>
+                  <div class="size-price">+¥{{ item.price }}</div>
                 </div>
               </div>
             </el-form-item>
           </div>
-          <!--配送地址-->
+
+          <!-- 配送地址  -->
           <div class="form-card">
             <div class="card-title">
               <el-icon>
-                <LocationInformation/>
+                <Location/>
               </el-icon>
               配送地址
             </div>
+
             <el-row :gutter="20">
               <el-col :span="12">
                 <el-form-item label="宿舍楼栋" prop="buildingId">
@@ -60,29 +65,28 @@
                     <el-option v-for="building in buildingList"
                                :key="building.buildingId"
                                :label="building.name"
-                               :value="building.buildingId"/>
+                               :value="building.buildingId"
+                    />
                   </el-select>
-
                 </el-form-item>
               </el-col>
               <el-col :span="12">
-                <el-form-item label="寝室号联系人" prop="room">
-                  <el-input v-model="form.room" placeholder="例:302-张三" size="large"></el-input>
+                <el-form-item label="寝室号/联系人" prop="room">
+                  <el-input v-model="form.room" placeholder="例: 302-张三" size="large"/>
                 </el-form-item>
               </el-col>
             </el-row>
+
             <el-form-item label="备注需求" prop="remark">
               <el-input v-model="form.remark"
-                        placeholder="例如：放在门口，不要敲门等"
+                        placeholder="例如：放在门口、不要敲门等"
                         maxlength="50"
-                        show-word-limit/>
+                        show-word-limit
+              />
             </el-form-item>
           </div>
-
         </el-form>
       </div>
-
-
 
       <div class="summary-section">
         <div class="receipt-card">
@@ -93,19 +97,20 @@
           <div>
             <div class="item-row">
               <span>基础配送费</span>
-              <span>¥{{bacePrice.toFixed(2)}}</span>
+              <span>¥{{ basePrice.toFixed(2) }}</span>
             </div>
             <div class="item-row">
               <span>规格附加费</span>
-              <span>¥{{sizePrice.toFixed(2)}}</span>
+              <span>¥{{ sizePrice.toFixed(2) }}</span>
             </div>
           </div>
           <div class="receipt-divider"/>
+
           <div class="total-row">
             <span>预估总价</span>
             <span class="total-price">
-           ¥{{totalPrice}}
-         </span>
+              ¥{{ totalPrice }}
+            </span>
           </div>
 
           <div>
@@ -114,148 +119,124 @@
                        class="pay-btn"
                        @click="submitOrder"
                        :loading="loading"
-
-            >
-              立即支付
+            >立即支付
             </el-button>
           </div>
 
         </div>
       </div>
+
     </div>
   </div>
 </template>
 
-
-
-
 <script setup>
-
-import {ref,onMounted, computed} from 'vue'
+import {ref, onMounted} from 'vue'
 import {Box, Location, LocationInformation} from "@element-plus/icons-vue";
-import {listStation} from "../../api/take/station.js";
-import {listSize} from "../../api/take/size.js";
-import {listBuilding} from "../../api/take/Building.js";
-import {addOrder} from "../../api/take/order.js";
+import {listStation} from "@/api/take/station.js";
+import {listSize} from "@/api/take/size.js";
+import {listBuilding} from "@/api/take/building.js";
+import {addOrder} from "@/api/take/order.js";
 import {ElMessage} from "element-plus";
 
-
-//提交订单
-
-const submitOrder = () => {
-  form.value.totalPrice = totalPrice.value
-
-  formRef.value.validate((valid) =>{
-    if(valid){
-      loading.value = true
-
-      //调用API提交订单
-
-      addOrder(form.value).then(ref =>{
-        loading.value = false
-        ElMessage.success('订单支付成功！ 配送员开始接单')
-        //跳转到我的订单页面 TODO
-      }).catch(()=>{
-        loading.value = false
-      })
-    }
-
-  })
-
-}
-
 //加载状态
-
 const loading = ref(false)
 
 //基础配送费
+const basePrice = 5.0
 
-const bacePrice = 2.0
+//计算规格附加费
+const sizePrice = computed(() => {
+  const option = sizeList.value.find(s => s.sizeId === form.value.sizeId)
+  return option ? option.price : 0
+})
+
+//计算总价
+const totalPrice = computed(() => {
+  let total = basePrice + sizePrice.value
+  return total.toFixed(2)
+})
+
+//表单实例
+const formRef = ref()
 
 //表单参数
 const form = ref({
-
   code: null,
   sizeId: null,
   buildingId: null,
   stationId: null,
   room: null,
   totalPrice: null,
-  status: null,
   remark: null
-
 })
-
-//计算规格附加费
-const  sizePrice = computed(() =>{
-  const option = sizeList.value.find(s =>s.sizeId === form.value.sizeId)
-  return option ? option.price : 0
-})
-
-//计算总价
-const totalPrice = computed(() =>{
-  let total = bacePrice + sizePrice.value
-  return total.toFixed(2)
-})
-
-
-//表单实例
-
-const formRef = ref()
 
 //表单校验
-const rulers =ref({
-
+const rules = ref({
   code: [
-    { required: true, message: "取件码不能为空", trigger: "blur" }
+    {required: true, message: "取件码不能为空", trigger: "blur"}
   ],
   sizeId: [
-    { required: true, message: "包裹规格不能为空", trigger: "blur" }
+    {required: true, message: "包裹规格不能为空", trigger: "blur"}
   ],
   buildingId: [
-    { required: true, message: "宿舍楼不能为空", trigger: "blur" }
+    {required: true, message: "宿舍楼不能为空", trigger: "blur"}
   ],
   stationId: [
-    { required: true, message: "快递站点不能为空", trigger: "blur" }
+    {required: true, message: "快递站点不能为空", trigger: "blur"}
   ],
   room: [
-    { required: true, message: "寝室号/联系人不能为空", trigger: "blur" }
+    {required: true, message: "寝室号/联系人不能为空", trigger: "blur"}
   ],
   totalPrice: [
-    { required: true, message: "总价不能为空", trigger: "blur" }
+    {required: true, message: "总价不能为空", trigger: "blur"}
   ],
-
 })
 
+//提交订单
+const submitOrder = () => {
+  form.value.totalPrice = totalPrice.value
+
+  formRef.value.validate((valid) => {
+    if (valid) {
+      loading.value = true
+
+      //调用api提交订单
+      addOrder(form.value).then(res => {
+        loading.value = false
+        ElMessage.success('订单支付成功! 配送员开始接单')
+        //跳转到我的订单页面 TODO
+      }).catch(() => {
+        loading.value = false
+      })
+    }
+  })
+}
 
 //站点列表
-const stationList = ref([ ])
+const stationList = ref([])
 //规格列表
-const sizeList = ref([ ])
+const sizeList = ref([])
 //宿舍楼列表
-const buildingList = ref([ ])
+const buildingList = ref([])
 
-onMounted(() =>{
-  const pageNum = 1
-//查询所有快递站点
-  listStation({pageNum,pageSizes:100}).then(res =>{
+onMounted(() => {
+  //查询所有快递站点
+  listStation({pageNum: 1, pageSize: 100}).then(res => {
     stationList.value = res.rows
-//查询所有规格列表
-    listSize({pageNum,pageSizes:100}).then(res =>{
-      sizeList.value = res.rows
-//查询所有宿舍楼列表
-      listBuilding({pageNum,pageSizes:100}).then(res =>{
-        buildingList.value = res.rows
-
-      })
-    })})})
-
+  })
+  //查询所有规格列表
+  listSize({pageNum: 1, pageSize: 100}).then(res => {
+    sizeList.value = res.rows
+  })
+  //查询所有宿舍楼
+  listBuilding({pageNum: 1, pageSize: 100}).then(res => {
+    buildingList.value = res.rows
+  })
+})
 </script>
 
-
-
 <style scoped>
-
 /* 主容器样式 */
 .takeout-container {
   min-height: calc(100vh - 70px); /* 视口高度减去头部高度 */

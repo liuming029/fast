@@ -1,22 +1,14 @@
 package com.fast.take.controller;
 
-import java.util.List;
-
-import jakarta.annotation.Resource;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 import com.fast.system.controller.BaseController;
 import com.fast.system.domain.AjaxResult;
-
+import com.fast.system.domain.TableDataInfo;
 import com.fast.take.domain.Order;
 import com.fast.take.service.IOrderService;
-import com.fast.system.domain.TableDataInfo;
+import jakarta.annotation.Resource;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * 订单Controller
@@ -71,4 +63,20 @@ public class OrderController extends BaseController {
     public AjaxResult remove(@PathVariable String[] orderIds) {
         return toAjax(orderService.deleteOrderByOrderIds(orderIds));
     }
-}
+
+    /**
+     * 查询用户个人订单列表
+     */
+    @GetMapping("/selectMyOrderList")
+    public TableDataInfo selectMyOrderList(Order order){
+        // 🌟 看这里！打印拿到的 userId
+        System.out.println("当前登录用户ID：" + getUserId());
+        order.setUserId(getUserId());
+        startPage();
+        List<Order> list = orderService.selectOrderList(order);
+        System.out.println("查询到的订单列表：" + list); // 看是否有数据
+        return getDataTable(list);
+    }
+    }
+
+

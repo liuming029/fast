@@ -42,3 +42,11 @@ export function delOrder(orderId) {
         method: 'delete'
     })
 }
+// 查询用户个人的订单列表
+export function selectMyOrderList(query) {
+    return request({
+        url: '/take/order/selectMyOrderList',
+        method: 'get',
+        params:query
+    })
+}

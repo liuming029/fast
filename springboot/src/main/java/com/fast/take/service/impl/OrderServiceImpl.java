@@ -1,11 +1,15 @@
 package com.fast.take.service.impl;
 
+import com.fast.system.service.IUserService;
 import com.fast.take.domain.Order;
 import com.fast.take.mapper.OrderMapper;
 import com.fast.take.service.IOrderService;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
-import java.time.*;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
@@ -22,6 +26,8 @@ public class OrderServiceImpl implements IOrderService
 {
     @Resource
     private OrderMapper orderMapper;
+    @Resource
+    private IUserService userService;
 
     /**
      * 查询订单
@@ -53,21 +59,40 @@ public class OrderServiceImpl implements IOrderService
      * @param order 订单
      * @return 结果
      */
+
+
+    /**
+     * 新增订单
+     *
+     * @param order 订单
+     * @return 结果
+     */
     @Override
-    public int insertOrder(Order order)
-    {
-        order.setUserId(getUserId());
+    @Transactional
+    public int insertOrder(Order order) {
         order.setCreateTime(new Date());
-
-       //获取当前时间
+        order.setUserId(getUserId());
+        //获取当前日期时间
         LocalDateTime now = LocalDateTime.now();
-
         //定义格式器
-        DateTimeFormatter  formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
         //格式化为字符串
         String formatDateTime = now.format(formatter);
-        //订单号 OR+ 当前日期 + 当前用户ID
-        order.setOrderId("OR"+formatDateTime + getUserId());
+        //订单号: OR + 当前日期时间 + 当前用户ID
+        order.setOrderId("OR" + formatDateTime + getUserId());
+        //查询用户在支付前的余额
+        BigDecimal oldBalance = userService.selectUserById(getUserId()).getBalance();
+        //判断余额是否足够扣费
+        if (oldBalance.compareTo(order.getTotalPrice()) < 0) {
+            throw new RuntimeException("余额不足, 请充值后再下单");
+        }
+
+        //扣除用户余额
+        //计算扣费后的金额
+        BigDecimal newBalance = oldBalance.subtract(order.getTotalPrice());
+
+        //更新用户余额
+        userService.updateUserBalance(newBalance, getUserId());
 
         return orderMapper.insertOrder(order);
     }

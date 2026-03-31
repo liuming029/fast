@@ -22,6 +22,12 @@
                 </el-icon>
                 快递代取
               </el-menu-item>
+              <el-menu-item index="/user/orders">
+                <el-icon>
+                  <ShoppingCart/>
+                </el-icon>
+                我的订单
+              </el-menu-item>
               <el-menu-item index="/user/recharge">
                 <el-icon>
                   <Discount/>
@@ -82,7 +88,7 @@ import {useRoute, useRouter} from 'vue-router'
 import {getUser} from "@/api/system/user"
 import useUserStore from "@/store/modules/userStore.js";
 import {ElMessageBox} from "element-plus";
-import {Discount, HomeFilled, ShoppingBag, UserFilled} from "@element-plus/icons-vue";
+import {Discount, HomeFilled, ShoppingBag, ShoppingCart, UserFilled} from "@element-plus/icons-vue";
 
 const userStore = useUserStore()
 const route = useRoute()
