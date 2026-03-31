@@ -22,6 +22,12 @@
                 </el-icon>
                 快递代取
               </el-menu-item>
+              <el-menu-item index="/user/accept" v-if="roleName === 'rider'">
+                <el-icon>
+                  <Service/>
+                </el-icon>
+                接单大厅
+              </el-menu-item>
               <el-menu-item index="/user/orders">
                 <el-icon>
                   <ShoppingCart/>
@@ -88,7 +94,7 @@ import {useRoute, useRouter} from 'vue-router'
 import {getUser} from "@/api/system/user"
 import useUserStore from "@/store/modules/userStore.js";
 import {ElMessageBox} from "element-plus";
-import {Discount, HomeFilled, ShoppingBag, ShoppingCart, UserFilled} from "@element-plus/icons-vue";
+import {Discount, HomeFilled, Service, ShoppingBag, ShoppingCart, UserFilled} from "@element-plus/icons-vue";
 
 const userStore = useUserStore()
 const route = useRoute()
@@ -104,9 +110,14 @@ onMounted(() => {
   getList()
 })
 
+//角色名称
+const roleName = ref('')
+
 const getList = () => {
   getUser(userStore.id).then(res => {
     nickName.value = res.data.nickName
+
+    roleName.value=res.data.roleName
   })
 }
 

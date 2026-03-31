@@ -139,6 +139,8 @@ import {listBuilding} from "@/api/take/building.js";
 import {addOrder} from "@/api/take/order.js";
 import {ElMessage} from "element-plus";
 
+import {useRouter} from "vue-router";
+
 //加载状态
 const loading = ref(false)
 
@@ -170,6 +172,9 @@ const form = ref({
   totalPrice: null,
   remark: null
 })
+
+//路由实例
+const router = useRouter()
 
 //表单校验
 const rules = ref({
@@ -205,7 +210,9 @@ const submitOrder = () => {
       addOrder(form.value).then(res => {
         loading.value = false
         ElMessage.success('订单支付成功! 配送员开始接单')
-        //跳转到我的订单页面 TODO
+        //跳转到我的订单页面
+        router.push('/user/orders')
+
       }).catch(() => {
         loading.value = false
       })

@@ -63,6 +63,11 @@ export const constantRoutes = [
         hidden: true
       },
       {
+        path: 'accept',
+        component: () => import('@/views/userPage/accept'),
+        hidden: true
+      },
+      {
         path: 'self',
         component: () => import('@/views/system/user/profile'),
         hidden: true
