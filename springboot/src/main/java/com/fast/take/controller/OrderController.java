@@ -77,6 +77,16 @@ public class OrderController extends BaseController {
         System.out.println("查询到的订单列表：" + list); // 看是否有数据
         return getDataTable(list);
     }
+/**
+ * 取消订单
+ */
+@PutMapping("/cancelOrder/{orderId}")
+    public AjaxResult cancelOrder(@PathVariable String orderId){
+    System.out.println(orderId);
+    return toAjax(orderService.cancelOrder(orderId));
+
+}
+
     }
 
 

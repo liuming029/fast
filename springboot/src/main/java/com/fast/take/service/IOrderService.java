@@ -1,7 +1,8 @@
 package com.fast.take.service;
 
-import java.util.List;
 import com.fast.take.domain.Order;
+
+import java.util.List;
 
 /**
  * 订单Service接口
@@ -50,4 +51,12 @@ public interface IOrderService
      * @return 结果
      */
     public int deleteOrderByOrderIds(String[] orderIds);
+
+
+    /**
+     * 取消订单
+     * @param orderId 订单id
+     * @return 是否取消成功
+     */
+    int cancelOrder(String orderId);
 }

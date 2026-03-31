@@ -120,4 +120,39 @@ public class OrderServiceImpl implements IOrderService
     {
         return orderMapper.deleteOrderByOrderIds(orderIds);
     }
+
+    /**
+     * 取消订单
+     * @param orderId 订单id
+     * @return 是否取消成功
+     */
+    @Override
+    @Transactional
+    public int cancelOrder(String orderId) {
+        //该订单的数据
+        Order order = orderMapper.selectOrderByOrderId(orderId);
+
+        //该订单的用户Id
+        Long userId = order.getUserId();
+
+        //该用户在取消订单前的余额
+        BigDecimal oldBalance = userService.selectUserById(userId).getBalance();
+
+        //退款给用户账户
+
+        //计算退款之后的账户余额
+
+        BigDecimal newBalance = oldBalance.add(order.getTotalPrice());
+
+        //更新账户余额
+
+        userService.updateUserBalance(newBalance,userId);
+
+        //将状态改为已取消
+        order.setStatus("已取消");
+        orderMapper.updateOrder(order);
+
+
+        return orderMapper.updateOrder(order);
+    }
 }

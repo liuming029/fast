@@ -50,3 +50,11 @@ export function selectMyOrderList(query) {
         params:query
     })
 }
+// 取消订单
+export function cancelOrder (orderId) {
+    return request({
+        url: '/take/order/cancelOrder/'+orderId,
+        method: 'put',
+
+    })
+}

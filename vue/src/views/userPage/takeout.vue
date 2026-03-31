@@ -143,7 +143,7 @@ import {ElMessage} from "element-plus";
 const loading = ref(false)
 
 //基础配送费
-const basePrice = 5.0
+const basePrice = 2.0
 
 //计算规格附加费
 const sizePrice = computed(() => {
