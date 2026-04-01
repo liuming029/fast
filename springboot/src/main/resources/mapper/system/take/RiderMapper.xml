@@ -46,6 +46,13 @@
         where user_id = #{userId}
     </select>
 
+        <!--根据用户ID查询配送员ID -->
+    <select id="selectRiderIdByUserId" resultType="java.lang.String">
+        select rider_id
+        from rider
+        where user_id = #{userId}
+    </select>
+
     <!--查询之前的认证ID-->
     <select id="selectOldAuthRiderIdByUserId" resultType="java.lang.String">
         select rider_id

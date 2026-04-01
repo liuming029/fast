@@ -58,3 +58,19 @@ export function cancelOrder (orderId) {
 
     })
 }
+
+// 接单
+export function accept (orderId) {
+    return request({
+        url: '/take/order/accept/'+orderId,
+        method: 'put',
+    })
+}
+// 查询配送员个人的接单记录列表
+export function selectOrderListByRiderToUserId(query) {
+    return request({
+        url: '/take/order/selectOrderListByRiderToUserId',
+        method: 'get',
+        params:query
+    })
+}

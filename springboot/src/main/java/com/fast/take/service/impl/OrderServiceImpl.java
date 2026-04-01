@@ -3,6 +3,7 @@ package com.fast.take.service.impl;
 import com.fast.system.service.IUserService;
 import com.fast.take.domain.Order;
 import com.fast.take.mapper.OrderMapper;
+import com.fast.take.mapper.RiderMapper;
 import com.fast.take.service.IOrderService;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
@@ -28,6 +29,8 @@ public class OrderServiceImpl implements IOrderService
     private OrderMapper orderMapper;
     @Resource
     private IUserService userService;
+    @Resource
+    private RiderMapper riderMapper;
 
     /**
      * 查询订单
@@ -153,6 +156,23 @@ public class OrderServiceImpl implements IOrderService
         orderMapper.updateOrder(order);
 
 
+        return orderMapper.updateOrder(order);
+    }
+
+    /**
+     * 接单
+     * @param orderId  订单Id
+     * @return 是否接单成功
+     */
+    @Override
+    public int accept(String orderId) {
+//查询当前配送员的 riderId （根据用户Id查询配送员Id）
+        String riderId = riderMapper.selectRiderIdByUserId(getUserId());
+        //更新订单信息
+        Order order = new Order();
+        order.setOrderId(orderId);
+        order.setRiderId(riderId);
+        order.setStatus("配送中");
         return orderMapper.updateOrder(order);
     }
 }

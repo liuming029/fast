@@ -1,8 +1,9 @@
 package com.fast.take.domain;
 
-import java.math.BigDecimal;
-import lombok.*;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.Data;
+
+import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -67,5 +68,8 @@ public class Order
 
     //下单用户
     private String userName;
+
+    //配送员对应的用户Id
+    private long riderToUserId;
 
 }

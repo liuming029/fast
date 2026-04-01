@@ -37,10 +37,10 @@
                   </div>
                 </div>
                 <div class="card-right">
-                  <!-- TODO-->
+
                   <el-button type="primary"
                              class="accept-btn"
-                             @click=""
+                             @click="handleAccept(order)"
                   >
                     接单
                   </el-button>
@@ -79,9 +79,10 @@
 
 <script setup>
 import {onMounted,ref,computed} from "vue";
-import {listOrder} from "../../api/take/order.js";
+import {accept, listOrder} from "../../api/take/order.js";
 import {Bicycle, ChatLineSquare, Warning} from "@element-plus/icons-vue";
 import useUserStore from "@/store/modules/userStore.js";
+import {ElMessage, ElMessageBox} from "element-plus";
 
 // 从用户仓库获取用户信息
 const userStore = useUserStore()
@@ -105,6 +106,21 @@ const formatTimeAgo = (timestamp) => {
   if(minutes < 60) return `${minutes}分钟前`
   const hours = Math.floor(minutes / 60)
   return `${hours}小时前`
+}
+
+//接单
+const handleAccept = (order) => {
+  ElMessageBox.confirm(`确认接取该订单吗？需从${order.station}送往${order.building}`, '接单确认', {
+    confirmButtonText: '确定',
+    cancelButtonText: '取消',
+    type: 'warning'
+  }).then(() => {
+    accept(order.orderId).then(res =>{
+      getList()
+      ElMessage.success('接单成功！请尽快前往取件')
+    })
+
+  })
 }
 
 //查询参数

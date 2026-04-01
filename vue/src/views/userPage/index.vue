@@ -28,6 +28,12 @@
                 </el-icon>
                 接单大厅
               </el-menu-item>
+              <el-menu-item index="/user/record" v-if="roleName === 'rider'">
+                <el-icon>
+                  <Reading/>
+                </el-icon>
+                接单记录
+              </el-menu-item>
               <el-menu-item index="/user/orders">
                 <el-icon>
                   <ShoppingCart/>
@@ -94,7 +100,8 @@ import {useRoute, useRouter} from 'vue-router'
 import {getUser} from "@/api/system/user"
 import useUserStore from "@/store/modules/userStore.js";
 import {ElMessageBox} from "element-plus";
-import {Discount, HomeFilled, Service, ShoppingBag, ShoppingCart, UserFilled} from "@element-plus/icons-vue";
+import {Discount, HomeFilled, Reading, Service, ShoppingBag, ShoppingCart, UserFilled} from "@element-plus/icons-vue";
+import Record from "./record.vue";
 
 const userStore = useUserStore()
 const route = useRoute()
@@ -146,7 +153,7 @@ const logout = () => {
 .front-header-nav .el-icon svg {
   width: 12px !important;
   height: 12px !important;
-  font-size: 12px !important; /* 同时强制字体变小 */
+  font-size: 15px !important; /* 同时强制字体变小 */
   margin-right: 2px !important;
   vertical-align: middle !important;
 }
@@ -173,7 +180,7 @@ const logout = () => {
   z-index: 1000;
 }
 .notice {
-  padding: 5px 20px;
+  padding: 10px 20px;
   color: #666;
   font-size: 12px;
   background-color: #fff;
@@ -191,7 +198,7 @@ const logout = () => {
   border-bottom: none !important;
 }
 .header-left {
-  width: 300px;
+  width: 280px;
   display: flex;
   align-items: center;
   padding-left: 30px;

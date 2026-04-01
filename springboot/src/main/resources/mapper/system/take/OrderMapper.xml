@@ -22,6 +22,7 @@
         <result property="rider"    column="rider"    />
         <result property="userName"    column="user_name"    />
         <result property="createTime"    column="create_time"    />
+        <result property="riderToUserId"    column="riderToUserId"    />
     </resultMap>
 
     <select id="selectOrderList" parameterType="Order" resultMap="OrderResult">
@@ -30,7 +31,7 @@
         s.name as size,
         b.name as building,
         sta.name as station,
-        r.real_name as rider,
+        r.real_name as rider,r.user_id as riderToUserId,
         u.user_name
         from `order` o
         left join size s on o.size_id = s.size_id
@@ -40,6 +41,7 @@
         left join user u on o.user_id = u.user_id
 
         <where>
+            <if test="riderToUserId != null  and riderToUserId != ''"> and r.user_id  = #{riderToUserId}</if>
             <if test="sizeId != null  and sizeId != ''"> and o.size_id = #{sizeId}</if>
             <if test="buildingId != null  and buildingId != ''"> and o.building_id = #{buildingId}</if>
             <if test="stationId != null  and stationId != ''"> and o.station_id = #{stationId}</if>

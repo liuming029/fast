@@ -59,4 +59,12 @@ public interface IOrderService
      * @return 是否取消成功
      */
     int cancelOrder(String orderId);
+
+
+    /**
+     * 接单
+     * @param orderId  订单Id
+     * @return 是否接单成功
+     */
+    int accept(String orderId);
 }

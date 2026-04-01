@@ -1,8 +1,9 @@
 package com.fast.take.mapper;
 
-import java.util.List;
-import org.apache.ibatis.annotations.Mapper;
 import com.fast.take.domain.Rider;
+import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
 
 /**
  * 配送员Mapper接口
@@ -68,4 +69,11 @@ public interface RiderMapper
      * @return 认证ID
      */
     String selectOldAuthRiderIdByUserId(Long userId);
+
+    /**
+     * 根据用户ID查询配送员ID
+     * @param userId 用户ID
+     * @return 配送员ID
+     */
+    String selectRiderIdByUserId(Long userId);
 }

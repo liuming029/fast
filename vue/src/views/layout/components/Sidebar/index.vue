@@ -35,12 +35,12 @@ const activeMenu = computed(() => {
 
 <style scoped>
 .sidebar-menu {
-  padding: 8px 0;
+  padding: 4px 0;
 }
 
 .sidebar-menu :deep(.el-menu-item) {
   color: #606266;
-  height: 55px;
+  height: 30px;
 }
 
 .sidebar-menu :deep(.el-menu-item).is-active {

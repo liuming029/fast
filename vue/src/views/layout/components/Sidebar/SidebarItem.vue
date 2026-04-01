@@ -3,7 +3,7 @@
     <template v-if="shouldShowSingleItem">
       <app-link v-if="onlyOneChild.meta" :to="singleItemPath">
         <el-menu-item :index="singleItemPath">
-          <svg-icon :icon-class="onlyOneChild.meta.icon || (item.meta && item.meta.icon)" style="margin-right: 10px;" />
+          <svg-icon :icon-class="onlyOneChild.meta.icon || (item.meta && item.meta.icon)" style="margin-right: 8px;" />
           <template #title>
             <span :title="getTitle(onlyOneChild.meta.title)" style="margin-left: 2px;">{{ onlyOneChild.meta.title }}</span>
           </template>
@@ -88,4 +88,25 @@ const getTitle = (title) => title?.length > 5 ? title : ""
 </script>
 
 <style scoped>
+/* 🔥 🔥 🔥 强制覆盖所有样式，100% 生效 */
+:deep(.el-menu-item) {
+  height: 50px !important;
+  line-height: 50px !important;
+  padding: 0 12px !important;
+  margin: 5px 0 !important;
+  border-radius: 4px;
+}
+
+:deep(.el-sub-menu__title) {
+  height: 56px !important;
+  line-height: 56px !important;
+  padding: 0 12px !important;
+  margin: 6px 0 !important;
+  border-radius: 4px;
+}
+
+/* 子菜单也拉开 */
+:deep(.el-menu .el-sub-menu) {
+  margin-bottom: 12px !important;
+}
 </style>

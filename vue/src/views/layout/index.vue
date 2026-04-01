@@ -175,9 +175,9 @@ watch(() => route.path, () => {
 
 /* 头部样式 */
 .layout-header {
-  height: 50px;
+  height: 40px;
   display: flex;
-  padding: 0 20px;
+  padding: 0 8px;
   position: fixed;
   left: 0;
   right: 0;
@@ -200,7 +200,7 @@ watch(() => route.path, () => {
 
 .logo-title {
   font-weight: bold;
-  font-size: 25px;
+  font-size: 15px;
 }
 
 .header-navbar {
@@ -230,12 +230,12 @@ watch(() => route.path, () => {
 .logout-btn {
   display: flex;
   align-items: center;
-  padding: 6px 10px;
-  margin-right: 15px;
+  padding: 4px 8px;
+  margin-right: 13px;
 }
 
 .logout-btn :deep(span) {
-  margin-left: 5px;
+  margin-left: 4px;
 }
 
 .user-dropdown {
@@ -261,9 +261,9 @@ watch(() => route.path, () => {
 
 /* 侧边栏样式 */
 .layout-sidebar {
-  width: 240px;
+  width: 200px;
   position: fixed;
-  top: 50px;
+  top: 40px;
   left: 0;
   bottom: 0;
   z-index: 1001;
@@ -273,9 +273,9 @@ watch(() => route.path, () => {
 
 /* 主内容区样式 */
 .layout-main {
-  min-height: calc(100vh - 50px);
+  min-height: calc(100vh - 40px);
   margin-left: 240px;
   position: relative;
-  top: 50px;
+  top: 40px;
 }
 </style>

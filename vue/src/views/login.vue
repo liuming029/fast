@@ -122,7 +122,7 @@ onMounted(() => {
 .login-box {
     display: flex;
     width: 500px;
-    height: 400px;
+    height: 420px;
     background: rgba(255, 255, 255, 0.85);
     border-radius: 10px;
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);

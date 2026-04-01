@@ -1,18 +1,13 @@
-07:58:17.245 [http-nio-8080-exec-1] ERROR c.f.s.c.TokenService - [getLoginUser,68] - 获取用户信息异常: JWT expired at 2026-03-30T18:40:12Z. Current time: 2026-03-30T23:58:17Z, a difference of 19085245 milliseconds.  Allowed clock skew: 0 milliseconds.
-11:11:12.280 [http-nio-8080-exec-15] ERROR c.f.s.e.GlobalExceptionHandler - [handleException,33] - 系统异常: 
-org.springframework.web.HttpRequestMethodNotSupportedException: Request method 'PUT' is not supported
-	at org.springframework.web.servlet.mvc.method.RequestMappingInfoHandlerMapping.handleNoMatch(RequestMappingInfoHandlerMapping.java:267)
-	at org.springframework.web.servlet.handler.AbstractHandlerMethodMapping.lookupHandlerMethod(AbstractHandlerMethodMapping.java:441)
-	at org.springframework.web.servlet.handler.AbstractHandlerMethodMapping.getHandlerInternal(AbstractHandlerMethodMapping.java:382)
-	at org.springframework.web.servlet.mvc.method.RequestMappingInfoHandlerMapping.getHandlerInternal(RequestMappingInfoHandlerMapping.java:127)
-	at org.springframework.web.servlet.mvc.method.RequestMappingInfoHandlerMapping.getHandlerInternal(RequestMappingInfoHandlerMapping.java:68)
-	at org.springframework.web.servlet.handler.AbstractHandlerMapping.getHandler(AbstractHandlerMapping.java:509)
-	at org.springframework.web.servlet.DispatcherServlet.getHandler(DispatcherServlet.java:1284)
-	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1065)
+13:26:17.206 [http-nio-8080-exec-1] ERROR c.f.s.c.TokenService - [getLoginUser,68] - 获取用户信息异常: JWT expired at 2026-03-31T16:36:18Z. Current time: 2026-04-01T05:26:17Z, a difference of 46199206 milliseconds.  Allowed clock skew: 0 milliseconds.
+13:59:11.028 [http-nio-8080-exec-60] ERROR c.f.s.e.GlobalExceptionHandler - [handleException,33] - 系统异常: 
+org.springframework.web.servlet.resource.NoResourceFoundException: No static resource system/user.
+	at org.springframework.web.servlet.resource.ResourceHttpRequestHandler.handleRequest(ResourceHttpRequestHandler.java:585)
+	at org.springframework.web.servlet.mvc.HttpRequestHandlerAdapter.handle(HttpRequestHandlerAdapter.java:52)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)
 	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979)
 	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014)
-	at org.springframework.web.servlet.FrameworkServlet.doPut(FrameworkServlet.java:925)
-	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:593)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:903)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:564)
 	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885)
 	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
 	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)

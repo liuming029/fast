@@ -86,7 +86,29 @@ public class OrderController extends BaseController {
     return toAjax(orderService.cancelOrder(orderId));
 
 }
+/**
+ * 接单
+ *
+ */
+@PutMapping("/accept/{orderId}")
+    public AjaxResult accept(@PathVariable String orderId){
 
-    }
+    return toAjax(orderService.accept(orderId));
+}
+
+/**
+ * 查询配送员个人的接单记录列表
+ */
+@GetMapping("/selectOrderListByRiderToUserId")
+    public TableDataInfo selectOrderListByRiderToUserId(Order order){
+    order.setRiderToUserId(getUserId());
+    startPage();
+    List<Order> list = orderService.selectOrderList(order);
+    return getDataTable(list);
+
+}
+
+
+}
 
 
