@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
@@ -173,6 +174,37 @@ public class OrderServiceImpl implements IOrderService
         order.setOrderId(orderId);
         order.setRiderId(riderId);
         order.setStatus("配送中");
+        return orderMapper.updateOrder(order);
+    }
+    /**
+     * 确认送达
+     * @param orderId 订单Id
+     * @return 是否执行成功
+     */
+    @Override
+    public int receive(String orderId) {
+        //订单信息
+        Order order = orderMapper.selectOrderByOrderId(orderId);
+
+        //配送员的用户id
+        Long riderToUserId = riderMapper.selectRiderByRiderId(order.getRiderId()).getUserId();
+
+        //计算总价的70%
+        //订单的总价
+        BigDecimal totalPrice = order.getTotalPrice();
+        //配送员提成
+        BigDecimal commission = totalPrice.multiply(new BigDecimal("0.7")).setScale(2, RoundingMode.HALF_UP);
+        //配送员此前的账户余额
+        BigDecimal oldBalancde = userService.selectUserById(riderToUserId).getBalance();
+        //配送员完成订单后的账户余额
+        BigDecimal newBalance = oldBalancde.add(commission);
+        //配送员的账户增加总价的70%
+        userService.updateUserBalance(newBalance,riderToUserId);
+
+        //订单的状态修改为已完成
+        order.setStatus("已完成");
+
+
         return orderMapper.updateOrder(order);
     }
 }

@@ -66,7 +66,7 @@
                 <el-button v-if="order.status === '待接单'" type="danger" @click="cancel(order.orderId)">
                   取消订单
                 </el-button>
-                <el-button v-if="order.status === '配送中'" type="success" @click="">
+                <el-button v-if="order.status === '配送中'" type="success" @click="handleReceive(order)">
                   确认送达
                 </el-button>
               </div>
@@ -94,7 +94,7 @@
 import { ref, onMounted } from 'vue'
 import { selectMyOrderList } from "@/api/take/order.js";
 import {ElMessage, ElMessageBox} from "element-plus";
-import {cancelOrder} from "../../api/take/order.js";
+import {cancelOrder, receive} from "../../api/take/order.js";
 
 const activeTab = ref('all')
 
@@ -112,6 +112,24 @@ const handleTabClick = (tab) => {
   query.value.status = activeTab.value === 'all' ? null : activeTab.value
   getList()
 }
+
+
+//确认送达
+const handleReceive = (order) => {
+  ElMessageBox.confirm('确认已经收到包裹了吗？', '系统提示', {
+    confirmButtonText: '确定',
+    cancelButtonText: '取消',
+    type: 'warning'
+
+  }).then(() => {
+    receive(order.orderId).then(res =>{
+      getList()
+      ElMessage.success("订单已完成~")
+    }).catch(() => {})
+  })
+
+}
+
 
 //取消订单
 const cancel = (orderId) => {

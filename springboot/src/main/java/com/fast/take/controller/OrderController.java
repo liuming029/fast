@@ -107,7 +107,13 @@ public class OrderController extends BaseController {
     return getDataTable(list);
 
 }
-
+/**
+ * 确认送达
+ */
+@PutMapping("/receive/{orderId}")
+    public AjaxResult receive(@PathVariable String orderId) {
+    return toAjax(orderService.receive(orderId));
+}
 
 }
 

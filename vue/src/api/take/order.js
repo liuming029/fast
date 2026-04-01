@@ -74,3 +74,10 @@ export function selectOrderListByRiderToUserId(query) {
         params:query
     })
 }
+// 确认送达
+export function receive (orderId) {
+    return request({
+        url: '/take/order/receive/'+orderId,
+        method: 'put',
+    })
+}

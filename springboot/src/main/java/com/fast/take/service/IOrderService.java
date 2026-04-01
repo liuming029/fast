@@ -67,4 +67,11 @@ public interface IOrderService
      * @return 是否接单成功
      */
     int accept(String orderId);
+
+    /**
+     * 确认送达
+     * @param orderId 订单Id
+     * @return 是否执行成功
+     */
+    int receive(String orderId);
 }
