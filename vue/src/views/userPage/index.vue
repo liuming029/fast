@@ -46,6 +46,12 @@
                 </el-icon>
                 账户充值
               </el-menu-item>
+              <el-menu-item index="/user/notice">
+                <el-icon>
+                  <Bell/>
+                </el-icon>
+                通知公告
+              </el-menu-item>
               <el-menu-item index="/user/self">
                 <el-icon>
                   <UserFilled/>

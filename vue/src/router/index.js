@@ -48,6 +48,11 @@ export const constantRoutes = [
         hidden: true
       },
       {
+        path: 'notice',
+        component: () => import('@/views/userPage/notice'),
+        hidden: true
+      },
+      {
         path: 'recharge',
         component: () => import('@/views/userPage/recharge'),
         hidden: true
@@ -84,6 +89,7 @@ export const constantRoutes = [
         component: () => import('@/views/userPage/auth'),
         hidden: true
       },
+
     ]
   },
   {
