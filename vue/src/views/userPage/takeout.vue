@@ -139,7 +139,7 @@ import {listBuilding} from "@/api/take/building.js";
 import {addOrder} from "@/api/take/order.js";
 import {ElMessage} from "element-plus";
 
-import {useRouter} from "vue-router";
+import {useRoute, useRouter} from "vue-router";
 
 //加载状态
 const loading = ref(false)
@@ -227,6 +227,8 @@ const sizeList = ref([])
 //宿舍楼列表
 const buildingList = ref([])
 
+const route = useRoute()
+
 onMounted(() => {
   //查询所有快递站点
   listStation({pageNum: 1, pageSize: 100}).then(res => {
@@ -240,6 +242,14 @@ onMounted(() => {
   listBuilding({pageNum: 1, pageSize: 100}).then(res => {
     buildingList.value = res.rows
   })
+
+  //组件挂载时，如果有携带参数，就赋值给表单
+  const { stationId,code,sizeId,buildingId,room} = route.query
+  if (stationId) form.value.stationId = stationId
+  if (code) form.value.code = code
+  if (sizeId) form.value.sizeId = sizeId
+  if (buildingId) form.value.buildingId = buildingId
+  if (room) form.value.room = room
 })
 </script>
 
