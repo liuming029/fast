@@ -8,3 +8,19 @@
 08:29:09.237 [main] INFO  c.a.d.p.DruidDataSource - [init,1002] - {dataSource-1} inited
 08:29:10.173 [main] INFO  o.a.c.h.Http11NioProtocol - [log,168] - Starting ProtocolHandler ["http-nio-8080"]
 08:29:10.192 [main] INFO  c.f.fastEasyApplication - [logStarted,59] - Started fastEasyApplication in 3.353 seconds (process running for 4.36)
+08:39:29.627 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[.[.[/] - [log,168] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+08:57:33.969 [SpringApplicationShutdownHook] INFO  c.a.d.p.DruidDataSource - [close,2204] - {dataSource-1} closing ...
+08:57:33.972 [SpringApplicationShutdownHook] INFO  c.a.d.p.DruidDataSource - [close,2277] - {dataSource-1} closed
+08:57:37.198 [main] INFO  c.f.fastEasyApplication - [logStarting,53] - Starting fastEasyApplication using Java 21.0.10 with PID 528 (C:\Users\刘铭\Desktop\fast\springboot\target\classes started by 刘铭 in C:\Users\刘铭\Desktop\fast)
+08:57:37.200 [main] INFO  c.f.fastEasyApplication - [logStartupProfileInfo,658] - The following 1 profile is active: "druid"
+08:57:38.069 [main] INFO  o.a.c.h.Http11NioProtocol - [log,168] - Initializing ProtocolHandler ["http-nio-8080"]
+08:57:38.070 [main] INFO  o.a.c.c.StandardService - [log,168] - Starting service [Tomcat]
+08:57:38.071 [main] INFO  o.a.c.c.StandardEngine - [log,168] - Starting Servlet engine: [Apache Tomcat/10.1.50]
+08:57:38.104 [main] INFO  o.a.c.c.C.[.[.[/] - [log,168] - Initializing Spring embedded WebApplicationContext
+08:57:38.179 [main] INFO  c.a.d.s.b.a.DruidDataSourceAutoConfigure - [dataSource,68] - Init DruidDataSource
+08:57:38.231 [main] INFO  c.a.d.p.DruidDataSource - [init,1002] - {dataSource-1} inited
+08:57:38.968 [main] INFO  o.a.c.h.Http11NioProtocol - [log,168] - Starting ProtocolHandler ["http-nio-8080"]
+08:57:38.993 [main] INFO  c.f.fastEasyApplication - [logStarted,59] - Started fastEasyApplication in 2.052 seconds (process running for 2.532)
+08:58:42.563 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[.[.[/] - [log,168] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+09:12:01.459 [SpringApplicationShutdownHook] INFO  c.a.d.p.DruidDataSource - [close,2204] - {dataSource-1} closing ...
+09:12:01.462 [SpringApplicationShutdownHook] INFO  c.a.d.p.DruidDataSource - [close,2277] - {dataSource-1} closed

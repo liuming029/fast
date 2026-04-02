@@ -16,3 +16,11 @@ export function selectOrderTrend () {
 
     })
 }
+// 查询订单状态分布统计
+export function selectOrderStatusChart () {
+    return request({
+        url: '/home/page/selectOrderStatusChart',
+        method: 'get',
+
+    })
+}

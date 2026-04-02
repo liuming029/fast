@@ -8,6 +8,7 @@ import com.fast.take.domain.Notice;
 import com.fast.take.domain.Order;
 import com.fast.take.domain.Rider;
 import com.fast.take.domain.vo.HomeCountVO;
+import com.fast.take.domain.vo.OrderStatusVO;
 import com.fast.take.domain.vo.OrderTrendItemVO;
 import com.fast.take.domain.vo.OrderTrendVO;
 import com.fast.take.service.INoticeService;
@@ -72,5 +73,17 @@ public AjaxResult selectOrderTrend(){
     result.setDates(dates);
     result.setCounts(counts);
 return success(result);
+}
+
+/**
+ * 查询订单状态分布统计
+ *
+ */
+
+@GetMapping("/selectOrderStatusChart")
+    public AjaxResult selectOrderStatusChart(){
+    List<OrderStatusVO> orderStatusVChartList = orderService.selectOrderStatusChart();
+    return success(orderStatusVChartList);
+
 }
 }
