@@ -8,6 +8,8 @@ import com.fast.take.domain.Notice;
 import com.fast.take.domain.Order;
 import com.fast.take.domain.Rider;
 import com.fast.take.domain.vo.HomeCountVO;
+import com.fast.take.domain.vo.OrderTrendItemVO;
+import com.fast.take.domain.vo.OrderTrendVO;
 import com.fast.take.service.INoticeService;
 import com.fast.take.service.IOrderService;
 import com.fast.take.service.IRiderService;
@@ -15,6 +17,9 @@ import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 后台首页接口层
@@ -52,4 +57,20 @@ public class HomePageController extends BaseController {
         homeCountVO.setNoticeCount(noticeCount);
         return  success(homeCountVO);
     }
+    /**
+     * 查询订单趋势统计
+     */
+@GetMapping("/selectOrderTrend")
+public AjaxResult selectOrderTrend(){
+    List<OrderTrendItemVO> orderTrendList = orderService.selectOrderTrend();
+
+    //分离日期和数量列表
+    List<String> dates = orderTrendList.stream().map(OrderTrendItemVO::getDates).collect(Collectors.toList());
+    List<Integer> counts = orderTrendList.stream().map(OrderTrendItemVO::getCounts).collect(Collectors.toList());
+
+    OrderTrendVO result = new OrderTrendVO();
+    result.setDates(dates);
+    result.setCounts(counts);
+return success(result);
+}
 }

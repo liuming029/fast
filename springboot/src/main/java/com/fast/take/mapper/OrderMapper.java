@@ -1,8 +1,10 @@
 package com.fast.take.mapper;
 
-import java.util.List;
-import org.apache.ibatis.annotations.Mapper;
 import com.fast.take.domain.Order;
+import com.fast.take.domain.vo.OrderTrendItemVO;
+import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
 
 /**
  * 订单Mapper接口
@@ -52,4 +54,11 @@ public interface OrderMapper
      * @return 结果
      */
     public int deleteOrderByOrderIds(String[] orderIds);
+
+
+    /**
+     *查询订单趋势统计
+     * @return 订单趋势统计
+     */
+    List<OrderTrendItemVO> selectOrderTrend();
 }

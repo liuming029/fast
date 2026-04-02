@@ -1,6 +1,7 @@
 package com.fast.take.service;
 
 import com.fast.take.domain.Order;
+import com.fast.take.domain.vo.OrderTrendItemVO;
 
 import java.util.List;
 
@@ -74,4 +75,10 @@ public interface IOrderService
      * @return 是否执行成功
      */
     int receive(String orderId);
+
+    /**
+     *查询订单趋势统计
+     * @return 订单趋势统计
+     */
+    List<OrderTrendItemVO> selectOrderTrend();
 }

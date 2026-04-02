@@ -70,22 +70,68 @@
       </el-card>
     </el-col>
   </el-row>
+    <el-row :gutter="20">
+      <el-col :span="14">
+        <el-card>
+          <template #header>
+            <span>近14天订单统计趋势</span>
+          </template>
+          <div ref="orderChartRef" style= "height : 550px; width: 100%;">
+
+          </div>
+        </el-card>
+      </el-col>
+    </el-row>
   </div>
 </template>
 
 <script setup>
 
 import {Bicycle, Document} from "@element-plus/icons-vue";
-import {selectHomeCount} from "../api/take/homePage.js";
+import {selectHomeCount, selectOrderTrend} from "../api/take/homePage.js";
+import  * as echarts from 'echarts'
 
+//图表实例
+const orderChartRef = ref()
+let orderChart = null
 
 //统计数据
 const homeCount = ref({})
+
+//初始化订单方法
+const initOrderChart = () => {
+  selectOrderTrend().then(res =>{
+    //初始化图表
+    orderChart=  echarts.init(orderChartRef.value)
+    const option = {
+      tooltip: {
+        trigger: 'axis'
+      },
+      xAxis: {
+        type: 'category',
+        data: res.data.dates
+      },
+      yAxis: {
+        type: 'value'
+      },
+      series: [{
+        data: res.data.counts,
+        type: 'line',
+        smooth: true,
+        itemStyle: {
+          color: '#409EFF'
+        }
+      }]}
+
+    orderChart.setOption(option)
+  })
+}
 
 onMounted(()=>{
   selectHomeCount().then(res =>{
     homeCount.value = res.data
   })
+  initOrderChart()
 })
 </script>
 

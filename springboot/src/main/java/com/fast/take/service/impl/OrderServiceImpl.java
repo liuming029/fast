@@ -2,6 +2,7 @@ package com.fast.take.service.impl;
 
 import com.fast.system.service.IUserService;
 import com.fast.take.domain.Order;
+import com.fast.take.domain.vo.OrderTrendItemVO;
 import com.fast.take.mapper.OrderMapper;
 import com.fast.take.mapper.RiderMapper;
 import com.fast.take.service.IOrderService;
@@ -206,5 +207,15 @@ public class OrderServiceImpl implements IOrderService
 
 
         return orderMapper.updateOrder(order);
+    }
+
+
+    /**
+     *查询订单趋势统计
+     * @return 订单趋势统计
+     */
+    @Override
+    public List<OrderTrendItemVO> selectOrderTrend() {
+        return orderMapper.selectOrderTrend();
     }
 }

@@ -72,6 +72,14 @@
                status, remark, user_id, rider_id, create_time from `order`
         where order_id = #{orderId}
     </select>
+    
+    <select id="selectOrderTrend" resultType="com.fast.take.domain.vo.OrderTrendItemVO">
+        select date_format(create_time,'%Y-%m-%d') as dates, count(order_id) as counts
+        from  `order`
+        where create_time >= date_sub(curdate(),interval 7 day )
+        group by date_format(create_time,'%Y-%m-%d')
+        order by date_format(create_time,'%Y-%m-%d')
+    </select>
 
     <insert id="insertOrder" parameterType="Order">
         insert into `order`

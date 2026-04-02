@@ -8,3 +8,11 @@ export function selectHomeCount () {
 
     })
 }
+// 查询订单趋势统计
+export function selectOrderTrend () {
+    return request({
+        url: '/home/page/selectOrderTrend',
+        method: 'get',
+
+    })
+}
