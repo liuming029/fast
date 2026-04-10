@@ -1,0 +1,250 @@
+.container {
+  min-height: 100vh;
+  background: #f0f2f5;
+}
+
+.header {
+  background: linear-gradient(135deg, #3AAE6E 0%, #2E8B57 100%);
+  padding: 40rpx 30rpx 80rpx;
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+
+.header::before {
+  content: '';
+  position: absolute;
+  top: -80rpx;
+  right: -80rpx;
+  width: 240rpx;
+  height: 240rpx;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+}
+
+.header-title {
+  font-size: 36rpx;
+  font-weight: bold;
+  margin-bottom: 8rpx;
+  position: relative;
+}
+
+.header-desc {
+  font-size: 24rpx;
+  opacity: 0.9;
+  position: relative;
+}
+
+.stats-grid {
+  display: flex;
+  flex-wrap: nowrap;
+  padding: 20rpx 30rpx;
+  margin-top: -40rpx;
+  position: relative;
+}
+
+.stat-card {
+  flex: 1;
+  margin-right: 12rpx;
+  background: #fff;
+  border-radius: 16rpx;
+  padding: 20rpx 12rpx;
+  text-align: center;
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.06);
+  transition: transform 0.3s ease;
+}
+
+.stat-card:last-child {
+  margin-right: 0;
+}
+
+.stat-card:active {
+  transform: scale(0.98);
+}
+
+.stat-card:nth-child(1) {
+  background: linear-gradient(135deg, #FF6B35 0%, #FF8C42 100%);
+  color: #fff;
+}
+
+.stat-card:nth-child(2) {
+  background: linear-gradient(135deg, #4A90E2 0%, #5DADE2 100%);
+  color: #fff;
+}
+
+.stat-card:nth-child(3) {
+  background: linear-gradient(135deg, #3AAE6E 0%, #42ca7f 100%);
+  color: #fff;
+}
+
+.stat-card:nth-child(4) {
+  background: linear-gradient(135deg, #9B59B6 0%, #B07BC9 100%);
+  color: #fff;
+}
+
+.stat-icon {
+  font-size: 32rpx;
+  margin-bottom: 4rpx;
+}
+
+.stat-value {
+  font-size: 28rpx;
+  font-weight: bold;
+  margin-bottom: 4rpx;
+}
+
+.stat-label {
+  font-size: 18rpx;
+  opacity: 0.9;
+}
+
+.menu-list {
+  padding: 12rpx 30rpx 30rpx;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border-radius: 12rpx;
+  padding: 22rpx 24rpx;
+  margin-bottom: 12rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.04);
+  transition: all 0.3s ease;
+}
+
+.menu-item:active {
+  transform: scale(0.98);
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.06);
+}
+
+.menu-icon {
+  font-size: 32rpx;
+  margin-right: 16rpx;
+  width: 56rpx;
+  height: 56rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #f5f7fa 0%, #e4e8eb 100%);
+  border-radius: 12rpx;
+}
+
+.menu-text {
+  flex: 1;
+  font-size: 26rpx;
+  color: #333;
+  font-weight: 500;
+}
+
+.menu-arrow {
+  font-size: 32rpx;
+  color: #d0d0d0;
+  font-weight: 300;
+}
+
+.chart-section {
+  padding: 0 30rpx;
+  margin-bottom: 20rpx;
+}
+
+.chart-card {
+  background: #fff;
+  border-radius: 16rpx;
+  padding: 24rpx;
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.06);
+}
+
+.chart-title {
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20rpx;
+}
+
+.trend-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+}
+
+.trend-item {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+}
+
+.trend-date {
+  width: 140rpx;
+  font-size: 24rpx;
+  color: #666;
+}
+
+.trend-bar {
+  flex: 1;
+  height: 24rpx;
+  background: #f0f2f5;
+  border-radius: 12rpx;
+  overflow: hidden;
+}
+
+.trend-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #409EFF 0%, #67C23A 100%);
+  border-radius: 12rpx;
+  transition: width 0.5s ease;
+}
+
+.trend-count {
+  width: 80rpx;
+  font-size: 24rpx;
+  font-weight: bold;
+  color: #333;
+  text-align: right;
+}
+
+.status-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.status-item {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+}
+
+.status-dot {
+  width: 20rpx;
+  height: 20rpx;
+  border-radius: 50%;
+}
+
+.status-name {
+  width: 120rpx;
+  font-size: 26rpx;
+  color: #333;
+}
+
+.status-count {
+  width: 80rpx;
+  font-size: 26rpx;
+  font-weight: bold;
+  color: #333;
+  text-align: right;
+}
+
+.status-bar {
+  flex: 1;
+  height: 20rpx;
+  background: #f0f2f5;
+  border-radius: 10rpx;
+  overflow: hidden;
+}
+
+.status-bar-fill {
+  height: 100%;
+  border-radius: 10rpx;
+  transition: width 0.5s ease;
+}

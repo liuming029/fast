@@ -1,0 +1,13 @@
+<view class="container">
+  <view class="header">
+    <view class="back-btn" bindtap="goBack">‹</view>
+    <view class="header-title">公告详情</view>
+    <view class="back-btn"></view>
+  </view>
+
+  <view class="content">
+    <view class="notice-title">{{notice.title || ''}}</view>
+    <view class="notice-time">{{notice.createTime || ''}}</view>
+    <view class="notice-content">{{notice.content || ''}}</view>
+  </view>
+</view>

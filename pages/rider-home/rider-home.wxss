@@ -1,0 +1,176 @@
+.container {
+  min-height: 100vh;
+  background: #f5f5f5;
+}
+
+.header {
+  background: linear-gradient(135deg, #3AAE6E 0%, #42ca7f 100%);
+  padding: 80rpx 40rpx 60rpx;
+  text-align: center;
+  color: #fff;
+}
+
+.header-icon {
+  font-size: 80rpx;
+  margin-bottom: 20rpx;
+}
+
+.header-title {
+  font-size: 36rpx;
+  font-weight: bold;
+  margin-bottom: 10rpx;
+}
+
+.header-desc {
+  font-size: 26rpx;
+  opacity: 0.9;
+}
+
+.tabs {
+  display: flex;
+  background: #fff;
+  margin: 30rpx;
+  border-radius: 16rpx;
+  padding: 10rpx;
+}
+
+.tab-item {
+  flex: 1;
+  text-align: center;
+  padding: 20rpx 0;
+  font-size: 28rpx;
+  color: #666;
+  border-radius: 12rpx;
+  transition: all 0.3s;
+}
+
+.tab-item.active {
+  background: #3AAE6E;
+  color: #fff;
+  font-weight: 600;
+}
+
+.order-list {
+  padding: 0 30rpx 30rpx;
+}
+
+.order-item {
+  background: #fff;
+  border-radius: 20rpx;
+  padding: 30rpx;
+  margin-bottom: 20rpx;
+}
+
+.order-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20rpx;
+  padding-bottom: 20rpx;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.order-number {
+  font-size: 28rpx;
+  color: #666;
+}
+
+.order-status {
+  font-size: 26rpx;
+  padding: 8rpx 20rpx;
+  border-radius: 20rpx;
+}
+
+.status-pending {
+  background: #fff7e6;
+  color: #fa8c16;
+}
+
+.status-delivering {
+  background: #e6f7ff;
+  color: #1890ff;
+}
+
+.status-completed {
+  background: #f6ffed;
+  color: #52c41a;
+}
+
+.status-cancelled {
+  background: #fff1f0;
+  color: #ff4d4f;
+}
+
+.order-info {
+  margin-bottom: 20rpx;
+}
+
+.info-row {
+  display: flex;
+  margin-bottom: 12rpx;
+  font-size: 26rpx;
+}
+
+.info-label {
+  color: #999;
+  width: 150rpx;
+  flex-shrink: 0;
+}
+
+.info-value {
+  color: #333;
+  flex: 1;
+}
+
+.order-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 20rpx;
+  border-top: 1rpx solid #f0f0f0;
+}
+
+.order-price {
+  display: flex;
+  align-items: center;
+}
+
+.price-label {
+  font-size: 26rpx;
+  color: #666;
+}
+
+.price-value {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #3AAE6E;
+}
+
+.order-actions {
+  display: flex;
+  gap: 20rpx;
+}
+
+.action-btn {
+  padding: 12rpx 30rpx;
+  border-radius: 30rpx;
+  font-size: 26rpx;
+  border: none;
+}
+
+.accept-btn {
+  background: #3AAE6E;
+  color: #fff;
+}
+
+.receive-btn {
+  background: #1890ff;
+  color: #fff;
+}
+
+.empty-tip {
+  text-align: center;
+  padding: 100rpx 0;
+  color: #999;
+  font-size: 28rpx;
+}

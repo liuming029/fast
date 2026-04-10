@@ -38,6 +38,12 @@ public class Order
     /** 总价 */
     private BigDecimal totalPrice;
 
+    /** 骑手分成 */
+    private BigDecimal riderCommission;
+
+    /** 平台分成 */
+    private BigDecimal platformCommission;
+
     /** 状态 */
     private String status;
 

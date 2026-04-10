@@ -90,4 +90,30 @@ public AjaxResult recharge(@PathVariable BigDecimal amount){
 
     }
 
+    /**
+     * 忘记密码-重置密码
+     */
+    @PostMapping("/forgotPwd")
+    public AjaxResult forgotPwd(@RequestBody User user) {
+        String userName = user.getUserName();
+        String newPassword = user.getPassword();
+        
+        if (userName == null || userName.isEmpty()) {
+            return error("用户名不能为空");
+        }
+        if (newPassword == null || newPassword.isEmpty()) {
+            return error("新密码不能为空");
+        }
+        
+        User existUser = userService.selectUserByUserName(userName);
+        if (existUser == null) {
+            return error("用户不存在");
+        }
+        
+        if (userService.resetUserPwd(userName, newPassword) > 0) {
+            return success("重置密码成功");
+        }
+        return error("重置密码失败");
+    }
+
 }

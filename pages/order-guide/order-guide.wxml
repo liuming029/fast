@@ -1,0 +1,60 @@
+<view class="container">
+  <view class="header">
+    <view class="back-btn" bindtap="goBack">‹</view>
+    <view class="header-title">下单须知</view>
+    <view class="back-btn"></view>
+  </view>
+
+  <view class="content">
+    <view class="guide-card">
+      <view class="guide-title">📋 下单流程</view>
+      <view class="guide-step">
+        <view class="step-num">1</view>
+        <view class="step-content">
+          <view class="step-title">选择快递驿站</view>
+          <view class="step-desc">选择您的快递所在的驿站</view>
+        </view>
+      </view>
+      <view class="guide-step">
+        <view class="step-num">2</view>
+        <view class="step-content">
+          <view class="step-title">选择宿舍楼</view>
+          <view class="step-desc">选择您要配送的宿舍楼</view>
+        </view>
+      </view>
+      <view class="guide-step">
+        <view class="step-num">3</view>
+        <view class="step-content">
+          <view class="step-title">填写订单信息</view>
+          <view class="step-desc">填写取件码、包裹规格等信息</view>
+        </view>
+      </view>
+      <view class="guide-step">
+        <view class="step-num">4</view>
+        <view class="step-content">
+          <view class="step-title">提交订单</view>
+          <view class="step-desc">确认信息无误后提交订单</view>
+        </view>
+      </view>
+    </view>
+
+    <view class="guide-card">
+      <view class="guide-title">⚠️ 注意事项</view>
+      <view class="guide-text">
+        • 请确保您的快递已到达驿站<br/>
+        • 取件码请填写准确，避免取错快递<br/>
+        • 贵重物品请在备注中说明<br/>
+        • 如需特殊配送要求，请在备注中注明<br/>
+        • 请保持电话畅通，方便骑手联系
+      </view>
+    </view>
+
+    <view class="guide-card">
+      <view class="guide-title">📞 联系我们</view>
+      <view class="guide-text">
+        • 客服电话：400-123-4567<br/>
+        • 工作时间：9:00 - 21:00
+      </view>
+    </view>
+  </view>
+</view>

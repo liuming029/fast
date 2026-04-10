@@ -1,0 +1,123 @@
+.container {
+  min-height: 100vh;
+  background: #f5f5f5;
+  padding-bottom: 40rpx;
+}
+
+.header {
+  background: linear-gradient(135deg, #3AAE6E 0%, #42ca7f 100%);
+  padding: 40rpx 30rpx;
+  color: #fff;
+}
+
+.header-title {
+  font-size: 36rpx;
+  font-weight: bold;
+}
+
+.rider-list {
+  padding: 20rpx 30rpx;
+}
+
+.rider-card {
+  background: #fff;
+  border-radius: 20rpx;
+  padding: 30rpx;
+  margin-bottom: 20rpx;
+}
+
+.rider-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+
+.rider-name {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.rider-status {
+  font-size: 24rpx;
+  padding: 6rpx 16rpx;
+  border-radius: 20rpx;
+}
+
+.status-pending {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.status-approved {
+  background: #d4edda;
+  color: #155724;
+}
+
+.status-rejected {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+.rider-info {
+  display: flex;
+  margin-bottom: 12rpx;
+}
+
+.info-label {
+  font-size: 26rpx;
+  color: #999;
+  width: 140rpx;
+}
+
+.info-value {
+  flex: 1;
+  font-size: 26rpx;
+  color: #333;
+}
+
+.rider-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20rpx;
+}
+
+.rider-time {
+  font-size: 24rpx;
+  color: #999;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 12rpx;
+}
+
+.action-btn {
+  font-size: 24rpx;
+  padding: 10rpx 20rpx;
+  border-radius: 8rpx;
+}
+
+.action-btn.approve {
+  background: #E3F2FD;
+  color: #1976D2;
+}
+
+.action-btn.reject {
+  background: #FFEBEE;
+  color: #D32F2F;
+}
+
+.action-btn.delete {
+  background: #ff4d4f;
+  color: #fff;
+}
+
+.empty-tip {
+  text-align: center;
+  padding: 100rpx 0;
+  color: #999;
+  font-size: 28rpx;
+}

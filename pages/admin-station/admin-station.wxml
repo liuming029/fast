@@ -1,0 +1,56 @@
+<view class="container">
+  <view class="header">
+    <view class="title">快递站点管理</view>
+    <view class="add-btn" bindtap="showAddModal">+ 新增</view>
+  </view>
+
+  <view class="station-list">
+    <view class="station-item" wx:for="{{stationList}}" wx:key="stationId">
+      <view class="station-info">
+        <view class="station-name">{{item.name}}</view>
+      </view>
+      <view class="station-actions">
+        <view class="action-btn edit" bindtap="showEditModal" data-station="{{item}}">编辑</view>
+        <view class="action-btn delete" bindtap="deleteStation" data-id="{{item.stationId}}">删除</view>
+      </view>
+    </view>
+    
+    <view class="empty" wx:if="{{stationList.length === 0}}">
+      <text>暂无快递站点</text>
+    </view>
+  </view>
+
+  <view class="modal" wx:if="{{showAddModal}}">
+    <view class="modal-content">
+      <view class="modal-title">新增快递站点</view>
+      
+      <view class="form-item">
+        <view class="form-label">站点名称</view>
+        <input class="form-input" placeholder="请输入站点名称" value="{{addForm.name}}" bindinput="onAddNameInput" />
+      </view>
+      
+      <view class="modal-buttons">
+        <view class="modal-btn cancel" bindtap="hideAddModal">取消</view>
+        <view class="modal-btn confirm" bindtap="addStation">保存</view>
+      </view>
+    </view>
+  </view>
+  <view class="mask" wx:if="{{showAddModal}}" bindtap="hideAddModal"></view>
+
+  <view class="modal" wx:if="{{showEditModal}}">
+    <view class="modal-content">
+      <view class="modal-title">编辑快递站点</view>
+      
+      <view class="form-item">
+        <view class="form-label">站点名称</view>
+        <input class="form-input" placeholder="请输入站点名称" value="{{editForm.name}}" bindinput="onEditNameInput" />
+      </view>
+      
+      <view class="modal-buttons">
+        <view class="modal-btn cancel" bindtap="hideEditModal">取消</view>
+        <view class="modal-btn confirm" bindtap="editStation">保存</view>
+      </view>
+    </view>
+  </view>
+  <view class="mask" wx:if="{{showEditModal}}" bindtap="hideEditModal"></view>
+</view>

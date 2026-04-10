@@ -195,17 +195,31 @@ public class OrderServiceImpl implements IOrderService
         //订单的总价
         BigDecimal totalPrice = order.getTotalPrice();
         //配送员提成
-        BigDecimal commission = totalPrice.multiply(new BigDecimal("0.7")).setScale(2, RoundingMode.HALF_UP);
+        BigDecimal riderCommission = totalPrice.multiply(new BigDecimal("0.7")).setScale(2, RoundingMode.HALF_UP);
+        //平台分成
+        BigDecimal platformCommission = totalPrice.multiply(new BigDecimal("0.3")).setScale(2, RoundingMode.HALF_UP);
+        
         //配送员此前的账户余额
         BigDecimal oldBalancde = userService.selectUserById(riderToUserId).getBalance();
         //配送员完成订单后的账户余额
-        BigDecimal newBalance = oldBalancde.add(commission);
+        BigDecimal newRiderBalance = oldBalancde.add(riderCommission);
         //配送员的账户增加总价的70%
-        userService.updateUserBalance(newBalance,riderToUserId);
+        userService.updateUserBalance(newRiderBalance, riderToUserId);
+        
+        //admin账号的用户ID（假设admin的userId是1）
+        Long adminUserId = 1L;
+        //admin账号此前的账户余额
+        BigDecimal oldAdminBalance = userService.selectUserById(adminUserId).getBalance();
+        //admin账号完成订单后的账户余额
+        BigDecimal newAdminBalance = oldAdminBalance.add(platformCommission);
+        //admin账号增加总价的30%
+        userService.updateUserBalance(newAdminBalance, adminUserId);
 
         //订单的状态修改为已完成
         order.setStatus("已完成");
-
+        //保存骑手分成和平台分成
+        order.setRiderCommission(riderCommission);
+        order.setPlatformCommission(platformCommission);
 
         return orderMapper.updateOrder(order);
     }

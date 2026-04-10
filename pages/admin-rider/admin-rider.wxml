@@ -1,0 +1,38 @@
+<view class="container">
+  <view class="header">
+    <view class="header-title">骑手管理</view>
+  </view>
+
+  <view class="rider-list">
+    <view 
+      class="rider-card" 
+      wx:for="{{riderList}}" 
+      wx:key="riderId"
+    >
+      <view class="rider-header">
+        <text class="rider-name">{{item.name}}</text>
+        <text class="rider-status {{item.statusClass}}">{{item.statusText}}</text>
+      </view>
+      <view class="rider-info">
+        <text class="info-label">身份证：</text>
+        <text class="info-value">{{item.idCard}}</text>
+      </view>
+      <view class="rider-info">
+        <text class="info-label">手机号：</text>
+        <text class="info-value">{{item.phone}}</text>
+      </view>
+      <view class="rider-footer">
+        <text class="rider-time">{{item.createTime}}</text>
+        <view class="action-buttons">
+          <view class="action-btn approve" wx:if="{{item.status === '待审核'}}" bindtap="approveRider" data-id="{{item.riderId}}">通过</view>
+          <view class="action-btn reject" wx:if="{{item.status === '待审核'}}" bindtap="rejectRider" data-id="{{item.riderId}}">拒绝</view>
+          <view class="action-btn delete" bindtap="deleteRider" data-id="{{item.riderId}}">删除</view>
+        </view>
+      </view>
+    </view>
+
+    <view class="empty-tip" wx:if="{{riderList.length === 0}}">
+      暂无骑手
+    </view>
+  </view>
+</view>

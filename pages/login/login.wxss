@@ -1,0 +1,119 @@
+.container {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #e6f7ff 0%, #ffffff 100%);
+  position: relative;
+}
+
+.bg-section {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 70%;
+  background: linear-gradient(135deg, #66ccff 0%, #3399ff 50%, #66ccff 100%);
+  border-bottom-left-radius: 100rpx;
+  border-bottom-right-radius: 100rpx;
+  z-index: 0;
+}
+
+.content {
+  position: relative;
+  z-index: 1;
+  padding: 80rpx 40rpx 0;
+}
+
+.logo-circle {
+  width: 200rpx;
+  height: 200rpx;
+  background: linear-gradient(135deg, #6666ff 0%, #ff66cc 100%);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto 40rpx;
+  box-shadow: 0 8rpx 24rpx rgba(102, 102, 255, 0.3);
+}
+
+.logo-emoji {
+  font-size: 100rpx;
+}
+
+.login-card {
+  background: white;
+  border-radius: 50rpx;
+  padding: 80rpx 60rpx 60rpx;
+  box-shadow: 0 8rpx 32rpx rgba(0, 0, 0, 0.08);
+}
+
+.card-header {
+  text-align: center;
+  margin-bottom: 60rpx;
+}
+
+.hi-text {
+  font-size: 72rpx;
+  font-weight: bold;
+  color: #333;
+  letter-spacing: 4rpx;
+}
+
+.input-group {
+  margin-bottom: 40rpx;
+}
+
+.input-item {
+  display: flex;
+  align-items: center;
+  border-bottom: 2rpx solid #f0f0f0;
+  padding: 24rpx 0;
+  margin-bottom: 8rpx;
+}
+
+.input-icon {
+  font-size: 36rpx;
+  margin-right: 20rpx;
+}
+
+.input-field {
+  flex: 1;
+  font-size: 32rpx;
+  color: #333;
+}
+
+.links-section {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 60rpx;
+  padding: 0 8rpx;
+}
+
+.link-left {
+  font-size: 28rpx;
+  color: #3399ff;
+}
+
+.link-right {
+  font-size: 28rpx;
+  color: #ff3333;
+}
+
+.submit-btn {
+  width: 100%;
+  background: linear-gradient(90deg, #3399ff 0%, #66ccff 100%);
+  color: white;
+  border: none;
+  border-radius: 60rpx;
+  padding: 32rpx;
+  font-size: 32rpx;
+  font-weight: 600;
+  box-shadow: 0 8rpx 24rpx rgba(51, 153, 255, 0.4);
+}
+
+.submit-btn::after {
+  border: none;
+}
+
+.submit-btn:active {
+  opacity: 0.9;
+  transform: scale(0.98);
+}

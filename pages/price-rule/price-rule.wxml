@@ -1,0 +1,49 @@
+<view class="container">
+  <view class="header">
+    <view class="back-btn" bindtap="goBack">‹</view>
+    <view class="header-title">计费规则</view>
+    <view class="back-btn"></view>
+  </view>
+
+  <view class="content">
+    <view class="rule-card">
+      <view class="rule-title">📦 包裹规格计费</view>
+      
+      <view class="rule-item">
+        <view class="rule-name">小件</view>
+        <view class="rule-price">¥3.00</view>
+        <view class="rule-desc">重量≤1kg，体积较小的快递</view>
+      </view>
+      
+      <view class="rule-item">
+        <view class="rule-name">中件</view>
+        <view class="rule-price">¥5.00</view>
+        <view class="rule-desc">重量≤3kg，体积适中的快递</view>
+      </view>
+      
+      <view class="rule-item">
+        <view class="rule-name">大件</view>
+        <view class="rule-price">¥8.00</view>
+        <view class="rule-desc">重量≤5kg，体积较大的快递</view>
+      </view>
+    </view>
+
+    <view class="rule-card">
+      <view class="rule-title">⏰ 配送时间说明</view>
+      <view class="rule-text">
+        • 订单提交后，骑手会在30分钟内接单<br/>
+        • 接单后1-2小时内完成配送<br/>
+        • 高峰期配送时间可能延长，请耐心等待
+      </view>
+    </view>
+
+    <view class="rule-card">
+      <view class="rule-title">💡 其他说明</view>
+      <view class="rule-text">
+        • 超出5kg的快递，每增加1kg加收2元<br/>
+        • 特殊物品（易碎品、贵重物品）请提前备注<br/>
+        • 如有疑问请联系客服
+      </view>
+    </view>
+  </view>
+</view>

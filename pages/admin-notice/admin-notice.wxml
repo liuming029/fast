@@ -1,0 +1,59 @@
+<view class="container">
+  <view class="header">
+    <view class="header-title">公告管理</view>
+    <button class="add-btn" bindtap="openAddModal">+ 新增</button>
+  </view>
+
+  <view class="notice-list">
+    <view 
+      class="notice-card" 
+      wx:for="{{noticeList}}" 
+      wx:key="noticeId"
+    >
+      <view class="notice-header">
+        <text class="notice-title">{{item.title}}</text>
+        <button class="delete-btn" bindtap="deleteNotice" data-id="{{item.noticeId}}">删除</button>
+      </view>
+      <view class="notice-content">{{item.content}}</view>
+      <view class="notice-footer">
+        <text class="notice-time">{{item.createTime}}</text>
+      </view>
+    </view>
+
+    <view class="empty-tip" wx:if="{{noticeList.length === 0}}">
+      暂无公告
+    </view>
+  </view>
+
+  <view class="modal-overlay" wx:if="{{showAddModal}}" bindtap="closeAddModal"></view>
+  <view class="add-modal" wx:if="{{showAddModal}}">
+    <view class="modal-header">
+      <view class="modal-title">新增公告</view>
+      <view class="modal-close" bindtap="closeAddModal">×</view>
+    </view>
+    <view class="modal-body">
+      <view class="form-item">
+        <text class="form-label">标题</text>
+        <input 
+          class="form-input" 
+          placeholder="请输入公告标题" 
+          value="{{newNoticeTitle}}"
+          bindinput="onTitleInput"
+        />
+      </view>
+      <view class="form-item">
+        <text class="form-label">内容</text>
+        <textarea 
+          class="form-textarea" 
+          placeholder="请输入公告内容" 
+          value="{{newNoticeContent}}"
+          bindinput="onContentInput"
+        />
+      </view>
+    </view>
+    <view class="modal-footer">
+      <button class="modal-btn cancel" bindtap="closeAddModal">取消</button>
+      <button class="modal-btn confirm" bindtap="addNotice">确定</button>
+    </view>
+  </view>
+</view>

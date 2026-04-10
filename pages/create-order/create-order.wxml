@@ -1,0 +1,131 @@
+<view class="container">
+  <view class="balance-card">
+    <view class="balance-info">
+      <text class="balance-label">当前余额</text>
+      <text class="balance-amount">¥{{balanceFormatted}}</text>
+    </view>
+    <view class="recharge-btn" bindtap="goToRecharge">
+      充值
+    </view>
+  </view>
+
+  <view class="form-section">
+    <view class="section-title">
+      <text class="title-icon">📦</text>
+      包裹信息
+    </view>
+    
+    <view class="form-item">
+      <text class="form-label">快递站点 *</text>
+      <picker 
+        mode="selector" 
+        range="{{stationList}}" 
+        range-key="name"
+        value="{{stationIndex}}"
+        bindchange="onStationChange"
+      >
+        <view class="picker-value">
+          {{selectedStation ? selectedStation.name : '请选择快递站点'}}
+        </view>
+      </picker>
+    </view>
+
+    <view class="form-item">
+      <text class="form-label">取件码 *</text>
+      <input 
+        class="form-input" 
+        placeholder="请输入取件码" 
+        value="{{formData.code}}"
+        bindinput="onInputChange"
+        data-field="code"
+      />
+    </view>
+
+    <view class="form-item">
+      <text class="form-label">包裹规格 *</text>
+      <view class="size-list">
+        <view 
+          class="size-item {{selectedSizeId === item.sizeId ? 'active' : ''}}"
+          wx:for="{{sizeList}}"
+          wx:key="sizeId"
+          bindtap="selectSize"
+          data-id="{{item.sizeId}}"
+        >
+          <text class="size-icon">📦</text>
+          <view class="size-info">
+            <text class="size-name">{{item.name}}</text>
+            <text class="size-desc">{{item.description}}</text>
+          </view>
+          <text class="size-price">+¥{{item.price}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="form-section">
+    <view class="section-title">
+      <text class="title-icon">📍</text>
+      配送地址
+    </view>
+
+    <view class="form-item">
+      <text class="form-label">宿舍楼栋 *</text>
+      <picker 
+        mode="selector" 
+        range="{{buildingList}}" 
+        range-key="name"
+        value="{{buildingIndex}}"
+        bindchange="onBuildingChange"
+      >
+        <view class="picker-value">
+          {{selectedBuilding ? selectedBuilding.name : '请选择宿舍楼'}}
+        </view>
+      </picker>
+    </view>
+
+    <view class="form-item">
+      <text class="form-label">寝室号/联系人 *</text>
+      <input 
+        class="form-input" 
+        placeholder="例：302-张三" 
+        value="{{formData.room}}"
+        bindinput="onInputChange"
+        data-field="room"
+      />
+    </view>
+
+    <view class="form-item">
+      <text class="form-label">备注</text>
+      <textarea 
+        class="form-textarea" 
+        placeholder="例如：放在门口、不要敲门等" 
+        value="{{formData.remark}}"
+        bindinput="onInputChange"
+        data-field="remark"
+        maxlength="50"
+      />
+    </view>
+  </view>
+
+  <view class="price-section">
+    <view class="price-row">
+      <text class="price-label">基础配送费</text>
+      <text class="price-value">¥{{basePrice}}</text>
+    </view>
+    <view class="price-row">
+      <text class="price-label">规格附加费</text>
+      <text class="price-value">¥{{sizePrice}}</text>
+    </view>
+    <view class="divider"></view>
+    <view class="total-row">
+      <text class="total-label">预估总价</text>
+      <text class="total-price">¥{{totalPrice}}</text>
+    </view>
+  </view>
+
+  <view class="submit-section">
+    <button class="submit-btn" bindtap="submitOrder" disabled="{{loading}}">
+      {{loading ? '提交中...' : '立即下单'}}
+    </button>
+  </view>
+</view>

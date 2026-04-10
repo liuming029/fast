@@ -1,0 +1,57 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/order/order",
+    "pages/my/my",
+    "pages/login/login",
+    "pages/login-form/login-form",
+    "pages/register/register",
+    "pages/create-order/create-order",
+    "pages/recharge/recharge",
+    "pages/rider-auth/rider-auth",
+    "pages/rider-home/rider-home",
+    "pages/rider-order-detail/rider-order-detail",
+    "pages/admin-home/admin-home",
+    "pages/admin-order/admin-order",
+    "pages/admin-user/admin-user",
+    "pages/admin-rider/admin-rider",
+    "pages/admin-notice/admin-notice",
+    "pages/profile/profile",
+    "pages/about/about",
+    "pages/admin-size/admin-size",
+    "pages/admin-station/admin-station",
+    "pages/admin-building/admin-building",
+    "pages/notice-detail/notice-detail",
+    "pages/forgot-password/forgot-password",
+    "pages/price-rule/price-rule",
+    "pages/order-guide/order-guide"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#3AAE6E",
+    "navigationBarTitleText": "快递代取",
+    "navigationBarTextStyle": "white"
+  },
+  "tabBar": {
+    "color": "#999999",
+    "selectedColor": "#3AAE6E",
+    "backgroundColor": "#ffffff",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/order/order",
+        "text": "订单"
+      },
+      {
+        "pagePath": "pages/my/my",
+        "text": "我的"
+      }
+    ]
+  },
+  "style": "v2",
+  "lazyCodeLoading": "requiredComponents",
+  "sitemapLocation": "sitemap.json"
+}

@@ -1,0 +1,66 @@
+<view class="container">
+  <view class="header">
+    <view class="header-icon">🚴</view>
+    <view class="header-title">骑手工作台</view>
+    <view class="header-desc">接单赚钱，轻松自由</view>
+  </view>
+
+  <view class="tabs">
+    <view class="tab-item {{currentTab === 0 ? 'active' : ''}}" bindtap="switchTab" data-index="0">
+      可接单
+    </view>
+    <view class="tab-item {{currentTab === 1 ? 'active' : ''}}" bindtap="switchTab" data-index="1">
+      配送中
+    </view>
+    <view class="tab-item {{currentTab === 2 ? 'active' : ''}}" bindtap="switchTab" data-index="2">
+      已完成
+    </view>
+  </view>
+
+  <view class="order-list">
+    <view class="order-item" wx:for="{{orderList}}" wx:key="orderId" bindtap="viewOrderDetail" data-id="{{item.orderId}}">
+      <view class="order-header">
+        <view class="order-number">{{item.orderNumber}}</view>
+        <view class="order-status {{item.statusClass}}">{{item.statusText}}</view>
+      </view>
+      
+      <view class="order-info">
+        <view class="info-row">
+          <text class="info-label">取件地址：</text>
+          <text class="info-value">{{item.pickupAddress}}</text>
+        </view>
+        <view class="info-row">
+          <text class="info-label">送件地址：</text>
+          <text class="info-value">{{item.deliveryAddress}}</text>
+        </view>
+        <view class="info-row">
+          <text class="info-label">创建时间：</text>
+          <text class="info-value">{{item.createTime}}</text>
+        </view>
+      </view>
+
+      <view class="order-footer">
+        <view class="order-price">
+          <text class="price-label">配送费：</text>
+          <text class="price-value">¥{{item.price}}</text>
+        </view>
+        
+        <view class="order-actions" wx:if="{{item.statusText === '待接单'}}">
+          <button class="action-btn accept-btn" bindtap="acceptOrder" data-id="{{item.orderId}}" catchtap="acceptOrder">
+            接单
+          </button>
+        </view>
+        
+        <view class="order-actions" wx:if="{{item.statusText === '配送中'}}">
+          <button class="action-btn receive-btn" bindtap="receiveOrder" data-id="{{item.orderId}}" catchtap="receiveOrder">
+            确认送达
+          </button>
+        </view>
+      </view>
+    </view>
+
+    <view class="empty-tip" wx:if="{{orderList.length === 0}}">
+      暂无订单
+    </view>
+  </view>
+</view>

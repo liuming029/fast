@@ -1,0 +1,54 @@
+<view class="container">
+  <view class="header">
+    <view class="title">宿舍楼管理</view>
+    <view class="add-btn" bindtap="showAddModal">+ 新增</view>
+  </view>
+
+  <view class="building-list">
+    <view class="building-item" wx:for="{{buildingList}}" wx:key="buildingId">
+      <view class="building-name">{{item.name}}</view>
+      <view class="building-actions">
+        <view class="action-btn edit" bindtap="showEditModal" data-building="{{item}}">编辑</view>
+        <view class="action-btn delete" bindtap="deleteBuilding" data-id="{{item.buildingId}}">删除</view>
+      </view>
+    </view>
+    
+    <view class="empty" wx:if="{{buildingList.length === 0}}">
+      <text>暂无宿舍楼</text>
+    </view>
+  </view>
+
+  <view class="modal" wx:if="{{showAddModal}}">
+    <view class="modal-content">
+      <view class="modal-title">新增宿舍楼</view>
+      
+      <view class="form-item">
+        <view class="form-label">宿舍楼名称</view>
+        <input class="form-input" placeholder="请输入宿舍楼名称" value="{{addForm.name}}" bindinput="onAddNameInput" />
+      </view>
+      
+      <view class="modal-buttons">
+        <view class="modal-btn cancel" bindtap="hideAddModal">取消</view>
+        <view class="modal-btn confirm" bindtap="addBuilding">保存</view>
+      </view>
+    </view>
+  </view>
+  <view class="mask" wx:if="{{showAddModal}}" bindtap="hideAddModal"></view>
+
+  <view class="modal" wx:if="{{showEditModal}}">
+    <view class="modal-content">
+      <view class="modal-title">编辑宿舍楼</view>
+      
+      <view class="form-item">
+        <view class="form-label">宿舍楼名称</view>
+        <input class="form-input" placeholder="请输入宿舍楼名称" value="{{editForm.name}}" bindinput="onEditNameInput" />
+      </view>
+      
+      <view class="modal-buttons">
+        <view class="modal-btn cancel" bindtap="hideEditModal">取消</view>
+        <view class="modal-btn confirm" bindtap="editBuilding">保存</view>
+      </view>
+    </view>
+  </view>
+  <view class="mask" wx:if="{{showEditModal}}" bindtap="hideEditModal"></view>
+</view>

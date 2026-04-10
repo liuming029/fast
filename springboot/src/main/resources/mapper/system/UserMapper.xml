@@ -26,7 +26,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </sql>
 
     <select id="selectUserList" parameterType="User" resultMap="UserResult">
-		select u.user_id, u.nick_name, u.user_name, u.avatar, u.sex, u.create_time
+		select u.user_id, u.nick_name, u.user_name, u.avatar, u.sex, u.create_time, u.balance
 		from user u
 		<where>
 			<if test="userId != null and userId != 0">

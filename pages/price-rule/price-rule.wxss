@@ -1,0 +1,83 @@
+.container {
+  min-height: 100vh;
+  background: #f5f7fa;
+}
+
+.header {
+  background: #2dd9cc;
+  padding: 24rpx 32rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.back-btn {
+  font-size: 48rpx;
+  color: white;
+  width: 80rpx;
+  text-align: center;
+}
+
+.header-title {
+  font-size: 36rpx;
+  font-weight: 600;
+  color: white;
+}
+
+.content {
+  padding: 32rpx 24rpx;
+}
+
+.rule-card {
+  background: white;
+  border-radius: 20rpx;
+  padding: 40rpx 32rpx;
+  margin-bottom: 24rpx;
+  box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.04);
+}
+
+.rule-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333333;
+  margin-bottom: 32rpx;
+}
+
+.rule-item {
+  display: flex;
+  align-items: center;
+  padding: 24rpx 0;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.rule-item:last-child {
+  border-bottom: none;
+}
+
+.rule-name {
+  font-size: 30rpx;
+  font-weight: 500;
+  color: #333333;
+  width: 120rpx;
+}
+
+.rule-price {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #2dd9cc;
+  width: 140rpx;
+  text-align: center;
+}
+
+.rule-desc {
+  flex: 1;
+  font-size: 26rpx;
+  color: #999999;
+  line-height: 1.5;
+}
+
+.rule-text {
+  font-size: 28rpx;
+  color: #666666;
+  line-height: 2;
+}

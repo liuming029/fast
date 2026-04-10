@@ -1,0 +1,229 @@
+.balance-card {
+  background: linear-gradient(135deg, #3AAE6E 0%, #42ca7f 100%);
+  margin: 30rpx;
+  border-radius: 20rpx;
+  padding: 40rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.balance-info {
+  color: #fff;
+}
+
+.balance-label {
+  font-size: 28rpx;
+  opacity: 0.9;
+  margin-bottom: 10rpx;
+  display: block;
+}
+
+.balance-amount {
+  font-size: 48rpx;
+  font-weight: bold;
+}
+
+.recharge-btn {
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  padding: 15rpx 40rpx;
+  border-radius: 40rpx;
+  font-size: 28rpx;
+}
+
+.container {
+  min-height: 100vh;
+  background: #f5f5f5;
+  padding-bottom: 200rpx;
+}
+
+.form-section {
+  background: #fff;
+  margin: 30rpx;
+  border-radius: 20rpx;
+  padding: 40rpx;
+}
+
+.section-title {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 30rpx;
+  display: flex;
+  align-items: center;
+}
+
+.title-icon {
+  font-size: 36rpx;
+  margin-right: 15rpx;
+}
+
+.form-item {
+  margin-bottom: 30rpx;
+}
+
+.form-item:last-child {
+  margin-bottom: 0;
+}
+
+.form-label {
+  font-size: 28rpx;
+  color: #666;
+  margin-bottom: 15rpx;
+  display: block;
+}
+
+.form-input {
+  width: 100%;
+  height: 88rpx;
+  background: #f5f5f5;
+  border-radius: 12rpx;
+  padding: 0 30rpx;
+  font-size: 28rpx;
+  box-sizing: border-box;
+}
+
+.form-textarea {
+  width: 100%;
+  min-height: 150rpx;
+  background: #f5f5f5;
+  border-radius: 12rpx;
+  padding: 20rpx 30rpx;
+  font-size: 28rpx;
+  box-sizing: border-box;
+}
+
+.picker-value {
+  width: 100%;
+  height: 88rpx;
+  background: #f5f5f5;
+  border-radius: 12rpx;
+  padding: 0 30rpx;
+  font-size: 28rpx;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  color: #333;
+}
+
+.size-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.size-item {
+  display: flex;
+  align-items: center;
+  padding: 30rpx;
+  border: 2rpx solid #e0e0e0;
+  border-radius: 16rpx;
+  transition: all 0.3s;
+}
+
+.size-item.active {
+  border-color: #3AAE6E;
+  background: #f0f9f4;
+}
+
+.size-icon {
+  font-size: 40rpx;
+  margin-right: 20rpx;
+}
+
+.size-info {
+  flex: 1;
+}
+
+.size-name {
+  font-size: 30rpx;
+  font-weight: 500;
+  color: #333;
+  display: block;
+  margin-bottom: 8rpx;
+}
+
+.size-desc {
+  font-size: 24rpx;
+  color: #999;
+}
+
+.size-price {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #3AAE6E;
+}
+
+.price-section {
+  background: #fff;
+  margin: 30rpx;
+  border-radius: 20rpx;
+  padding: 40rpx;
+}
+
+.price-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+
+.price-label {
+  font-size: 28rpx;
+  color: #666;
+}
+
+.price-value {
+  font-size: 28rpx;
+  color: #333;
+}
+
+.divider {
+  height: 1rpx;
+  background: #f0f0f0;
+  margin: 30rpx 0;
+}
+
+.total-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.total-label {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #333;
+}
+
+.total-price {
+  font-size: 48rpx;
+  font-weight: bold;
+  color: #3AAE6E;
+}
+
+.submit-section {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #fff;
+  padding: 30rpx;
+  box-shadow: 0 -4rpx 20rpx rgba(0, 0, 0, 0.05);
+}
+
+.submit-btn {
+  width: 100%;
+  height: 88rpx;
+  background: #3AAE6E;
+  color: #fff;
+  border: none;
+  border-radius: 44rpx;
+  font-size: 32rpx;
+  font-weight: 600;
+}
+
+.submit-btn[disabled] {
+  background: #ccc;
+}

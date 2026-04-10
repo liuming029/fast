@@ -1,0 +1,43 @@
+<view class="container">
+  <view class="header">
+    <view class="header-title">订单管理</view>
+  </view>
+
+  <view class="order-list">
+    <view 
+      class="order-card" 
+      wx:for="{{orderList}}" 
+      wx:key="orderId"
+    >
+      <view class="order-header">
+        <text class="order-number">{{item.orderNumber}}</text>
+        <text class="order-status {{item.statusClass}}">{{item.statusText}}</text>
+      </view>
+      <view class="order-address">
+        <text class="order-address-label">取件：</text>
+        <text class="order-address-value">{{item.pickupAddress}}</text>
+      </view>
+      <view class="order-address">
+        <text class="order-address-label">送件：</text>
+        <text class="order-address-value">{{item.deliveryAddress}}</text>
+      </view>
+      <view class="order-footer">
+        <text class="order-time">{{item.createTime}}</text>
+        <text class="order-price">¥{{item.price}}</text>
+      </view>
+      <view class="order-commission" wx:if="{{item.statusText === '已完成'}}">
+        <text class="commission-label">骑手分成：</text>
+        <text class="commission-value rider">¥{{item.riderCommission}}</text>
+        <text class="commission-label">平台分成：</text>
+        <text class="commission-value platform">¥{{item.platformCommission}}</text>
+      </view>
+      <view class="order-footer-actions">
+        <button class="delete-btn" bindtap="deleteOrder" data-id="{{item.orderId}}">删除</button>
+      </view>
+    </view>
+
+    <view class="empty-tip" wx:if="{{orderList.length === 0}}">
+      暂无订单
+    </view>
+  </view>
+</view>

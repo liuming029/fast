@@ -1,0 +1,45 @@
+<view class="container">
+  <view class="header">
+    <view class="logo">📦</view>
+    <view class="app-name">学生快递代取平台</view>
+    <view class="version">版本 v{{version}}</view>
+  </view>
+
+  <view class="info-card">
+    <view class="card-title">关于我们</view>
+    <view class="card-content">
+      <text>学生快递代取平台是一款专为学生设计的快递代取服务小程序，让你足不出户就能轻松取件！</text>
+    </view>
+  </view>
+
+  <view class="menu-list">
+    <view class="menu-item" bindtap="goToPrivacy">
+      <view class="menu-icon">📜</view>
+      <view class="menu-text">隐私政策</view>
+      <view class="menu-arrow">></view>
+    </view>
+    
+    <view class="menu-item" bindtap="goToAgreement">
+      <view class="menu-icon">📋</view>
+      <view class="menu-text">用户协议</view>
+      <view class="menu-arrow">></view>
+    </view>
+    
+    <view class="menu-item" bindtap="goToFeedback">
+      <view class="menu-icon">💬</view>
+      <view class="menu-text">意见反馈</view>
+      <view class="menu-arrow">></view>
+    </view>
+    
+    <view class="menu-item" bindtap="makePhoneCall">
+      <view class="menu-icon">📞</view>
+      <view class="menu-text">联系客服</view>
+      <view class="menu-arrow">></view>
+    </view>
+  </view>
+
+  <view class="footer">
+    <view class="footer-text">© 2024 学生快递代取平台</view>
+    <view class="footer-text">All Rights Reserved</view>
+  </view>
+</view>

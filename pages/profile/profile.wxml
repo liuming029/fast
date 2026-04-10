@@ -1,0 +1,60 @@
+<view class="container">
+  <view class="header">
+    <view class="avatar" bindtap="chooseAvatar">
+      <image src="{{avatar || ''}}" mode="aspectFill"></image>
+      <view class="avatar-tip">点击更换</view>
+    </view>
+    <view class="user-name">{{userInfo.userName || '用户'}}</view>
+  </view>
+
+  <view class="info-list">
+    <view class="info-item">
+      <view class="info-label">用户名</view>
+      <view class="info-value">{{userInfo.userName || '-'}}</view>
+    </view>
+    
+    <view class="info-item">
+      <view class="info-label">昵称</view>
+      <view class="info-value">{{userInfo.nickname || '-'}}</view>
+    </view>
+    
+    <view class="info-item">
+      <view class="info-label">手机号</view>
+      <view class="info-value">{{userInfo.phone || '-'}}</view>
+    </view>
+    
+    <view class="info-item">
+      <view class="info-label">用户ID</view>
+      <view class="info-value">{{userInfo.userId || '-'}}</view>
+    </view>
+    
+    <view class="info-item">
+      <view class="info-label">注册时间</view>
+      <view class="info-value">{{userInfo.createTime || '-'}}</view>
+    </view>
+  </view>
+
+  <view class="edit-btn" bindtap="showEdit">编辑资料</view>
+
+  <view class="modal" wx:if="{{showEditModal}}">
+    <view class="modal-content">
+      <view class="modal-title">编辑资料</view>
+      
+      <view class="form-item">
+        <view class="form-label">昵称</view>
+        <input class="form-input" placeholder="请输入昵称" value="{{editNickname}}" bindinput="onNicknameInput" />
+      </view>
+      
+      <view class="form-item">
+        <view class="form-label">手机号</view>
+        <input class="form-input" placeholder="请输入手机号" value="{{editPhone}}" bindinput="onPhoneInput" />
+      </view>
+      
+      <view class="modal-buttons">
+        <view class="modal-btn cancel" bindtap="hideEdit">取消</view>
+        <view class="modal-btn confirm" bindtap="saveEdit">保存</view>
+      </view>
+    </view>
+  </view>
+  <view class="mask" wx:if="{{showEditModal}}" bindtap="hideEdit"></view>
+</view>

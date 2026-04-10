@@ -1,0 +1,38 @@
+<view class="container">
+  <view class="header">
+    <view class="header-title">用户管理</view>
+  </view>
+
+  <view class="user-list">
+    <view 
+      class="user-card" 
+      wx:for="{{userList}}" 
+      wx:key="userId"
+    >
+      <view class="user-header">
+        <text class="user-name">{{item.nickName}}</text>
+        <text class="user-id">ID: {{item.userId}}</text>
+      </view>
+      <view class="user-info">
+        <text class="info-label">用户名：</text>
+        <text class="info-value">{{item.userName}}</text>
+      </view>
+      <view class="user-info">
+        <text class="info-label">手机号：</text>
+        <text class="info-value">{{item.phoneNumber}}</text>
+      </view>
+      <view class="user-info">
+        <text class="info-label">余额：</text>
+        <text class="info-value balance">¥{{item.balance}}</text>
+      </view>
+      <view class="user-footer">
+        <text class="user-time">{{item.createTime}}</text>
+        <button class="delete-btn" bindtap="deleteUser" data-id="{{item.userId}}">删除</button>
+      </view>
+    </view>
+
+    <view class="empty-tip" wx:if="{{userList.length === 0}}">
+      暂无用户
+    </view>
+  </view>
+</view>

@@ -1,0 +1,118 @@
+<view class="container">
+  <view class="hero-section">
+    <image class="hero-bg" src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=800&q=80" mode="aspectFill"></image>
+    <view class="hero-overlay"></view>
+  </view>
+
+  <view class="notice-section" wx:if="{{noticeList.length > 0}}">
+    <view class="notice-bar">
+      <text class="notice-icon">📢</text>
+      <view class="notice-list">
+        <view class="notice-item" wx:for="{{noticeList}}" wx:key="noticeId" bindtap="viewNoticeDetail" data-id="{{item.noticeId}}">
+          <text class="notice-text">{{item.title || ''}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="content-section" wx:if="{{!isRider && !isAdmin}}">
+    <view class="order-card">
+      <view class="card-header">
+        <view class="header-dot"></view>
+        <text class="card-title">选择取件快递驿站</text>
+      </view>
+
+      <view class="select-section" bindtap="selectStation">
+        <view class="select-item">
+          <view class="select-dot station-dot"></view>
+          <view class="select-content">
+            <text class="select-label">快递驿站</text>
+            <text class="select-value">{{selectedStation || '请选择'}}</text>
+          </view>
+          <text class="select-arrow">›</text>
+        </view>
+      </view>
+
+      <view class="select-section" bindtap="selectBuilding">
+        <view class="select-item">
+          <view class="select-dot building-dot"></view>
+          <view class="select-content">
+            <text class="select-label">宿舍楼</text>
+            <text class="select-value">{{selectedBuilding || '请选择'}}</text>
+          </view>
+          <text class="select-arrow">›</text>
+        </view>
+      </view>
+
+      <button class="order-btn" bindtap="createOrder">
+        立即下单
+      </button>
+
+      <view class="links-section">
+        <view class="link-item" bindtap="goToPriceRule">计费规则</view>
+        <view class="link-divider"></view>
+        <view class="link-item" bindtap="goToOrderGuide">下单须知</view>
+        <view class="link-divider"></view>
+        <view class="link-item" bindtap="goToRiderAuth">骑手申请</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="rider-section" wx:if="{{isRider}}">
+    <view class="rider-card">
+      <view class="rider-header">
+        <view class="rider-icon">🚴</view>
+        <view class="rider-title">骑手工作台</view>
+        <view class="rider-desc">接单赚钱，轻松自由</view>
+      </view>
+      
+      <view class="rider-stats">
+        <view class="rider-stat">
+          <view class="stat-num">{{pendingCount}}</view>
+          <view class="stat-label">待接单</view>
+        </view>
+        <view class="rider-stat">
+          <view class="stat-num">{{deliveringCount}}</view>
+          <view class="stat-label">配送中</view>
+        </view>
+        <view class="rider-stat">
+          <view class="stat-num">{{completedCount}}</view>
+          <view class="stat-label">已完成</view>
+        </view>
+      </view>
+      
+      <button class="rider-btn" bindtap="goToRiderHome">
+        进入接单
+      </button>
+    </view>
+  </view>
+
+  <view class="admin-section" wx:if="{{isAdmin}}">
+    <view class="admin-card">
+      <view class="admin-header">
+        <view class="admin-icon">⚙️</view>
+        <view class="admin-title">管理后台</view>
+        <view class="admin-desc">欢迎，管理员</view>
+      </view>
+      
+      <view class="admin-stats">
+        <view class="admin-stat">
+          <view class="stat-num">{{stats.orderCount}}</view>
+          <view class="stat-label">总订单</view>
+        </view>
+        <view class="admin-stat">
+          <view class="stat-num">{{stats.userCount}}</view>
+          <view class="stat-label">用户数</view>
+        </view>
+        <view class="admin-stat">
+          <view class="stat-num">{{stats.riderCount}}</view>
+          <view class="stat-label">骑手数</view>
+        </view>
+      </view>
+      
+      <button class="admin-btn" bindtap="goToAdminHome">
+        进入管理
+      </button>
+    </view>
+  </view>
+</view>

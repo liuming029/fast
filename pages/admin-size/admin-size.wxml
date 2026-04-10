@@ -1,0 +1,67 @@
+<view class="container">
+  <view class="header">
+    <view class="title">包裹规格管理</view>
+    <view class="add-btn" bindtap="showAddModal">+ 新增</view>
+  </view>
+
+  <view class="size-list">
+    <view class="size-item" wx:for="{{sizeList}}" wx:key="sizeId">
+      <view class="size-info">
+        <view class="size-name">{{item.name}}</view>
+        <view class="size-price">¥{{item.price}}</view>
+      </view>
+      <view class="size-actions">
+        <view class="action-btn edit" bindtap="showEditModal" data-size="{{item}}">编辑</view>
+        <view class="action-btn delete" bindtap="deleteSize" data-id="{{item.sizeId}}">删除</view>
+      </view>
+    </view>
+    
+    <view class="empty" wx:if="{{sizeList.length === 0}}">
+      <text>暂无包裹规格</text>
+    </view>
+  </view>
+
+  <view class="modal" wx:if="{{showAddModal}}">
+    <view class="modal-content">
+      <view class="modal-title">新增包裹规格</view>
+      
+      <view class="form-item">
+        <view class="form-label">规格名称</view>
+        <input class="form-input" placeholder="请输入规格名称" value="{{addForm.name}}" bindinput="onAddNameInput" />
+      </view>
+      
+      <view class="form-item">
+        <view class="form-label">价格</view>
+        <input class="form-input" type="digit" placeholder="请输入价格" value="{{addForm.price}}" bindinput="onAddPriceInput" />
+      </view>
+      
+      <view class="modal-buttons">
+        <view class="modal-btn cancel" bindtap="hideAddModal">取消</view>
+        <view class="modal-btn confirm" bindtap="addSize">保存</view>
+      </view>
+    </view>
+  </view>
+  <view class="mask" wx:if="{{showAddModal}}" bindtap="hideAddModal"></view>
+
+  <view class="modal" wx:if="{{showEditModal}}">
+    <view class="modal-content">
+      <view class="modal-title">编辑包裹规格</view>
+      
+      <view class="form-item">
+        <view class="form-label">规格名称</view>
+        <input class="form-input" placeholder="请输入规格名称" value="{{editForm.name}}" bindinput="onEditNameInput" />
+      </view>
+      
+      <view class="form-item">
+        <view class="form-label">价格</view>
+        <input class="form-input" type="digit" placeholder="请输入价格" value="{{editForm.price}}" bindinput="onEditPriceInput" />
+      </view>
+      
+      <view class="modal-buttons">
+        <view class="modal-btn cancel" bindtap="hideEditModal">取消</view>
+        <view class="modal-btn confirm" bindtap="editSize">保存</view>
+      </view>
+    </view>
+  </view>
+  <view class="mask" wx:if="{{showEditModal}}" bindtap="hideEditModal"></view>
+</view>

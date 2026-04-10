@@ -1,0 +1,102 @@
+<view class="container">
+  <view class="header">
+    <view class="header-title">管理后台</view>
+    <view class="header-desc">欢迎，管理员</view>
+  </view>
+
+  <view class="stats-grid">
+    <view class="stat-card">
+      <view class="stat-icon">📦</view>
+      <view class="stat-value">{{stats.orderCount}}</view>
+      <view class="stat-label">总订单数</view>
+    </view>
+    <view class="stat-card">
+      <view class="stat-icon">👥</view>
+      <view class="stat-value">{{stats.userCount}}</view>
+      <view class="stat-label">用户总数</view>
+    </view>
+    <view class="stat-card">
+      <view class="stat-icon">🚴</view>
+      <view class="stat-value">{{stats.riderCount}}</view>
+      <view class="stat-label">配送员数</view>
+    </view>
+    <view class="stat-card">
+      <view class="stat-icon">📢</view>
+      <view class="stat-value">{{stats.noticeCount}}</view>
+      <view class="stat-label">公告数</view>
+    </view>
+  </view>
+
+  <view class="chart-section">
+    <view class="chart-card">
+      <view class="chart-title">近14天订单统计趋势</view>
+      <view class="chart-content">
+        <view class="trend-list">
+          <view class="trend-item" wx:for="{{orderTrend}}" wx:key="date">
+            <view class="trend-date">{{item.date}}</view>
+            <view class="trend-bar">
+              <view class="trend-bar-fill" style="width: {{item.barWidth}}%;"></view>
+            </view>
+            <view class="trend-count">{{item.count}}单</view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="chart-section">
+    <view class="chart-card">
+      <view class="chart-title">订单状态分布</view>
+      <view class="chart-content">
+        <view class="status-list">
+          <view class="status-item" wx:for="{{orderStatus}}" wx:key="status">
+            <view class="status-dot" style="background-color: {{item.status === '待接单' ? '#faad14' : item.status === '配送中' ? '#1890ff' : item.status === '已完成' ? '#52c41a' : '#ff4d4f'}};"></view>
+            <view class="status-name">{{item.status}}</view>
+            <view class="status-count">{{item.count}}单</view>
+            <view class="status-bar">
+              <view class="status-bar-fill" style="width: {{item.barWidth}}%; background-color: {{item.status === '待接单' ? '#faad14' : item.status === '配送中' ? '#1890ff' : item.status === '已完成' ? '#52c41a' : '#ff4d4f'}};"></view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="menu-list">
+    <view class="menu-item" bindtap="goToOrderManage">
+      <view class="menu-icon">📋</view>
+      <view class="menu-text">订单管理</view>
+      <view class="menu-arrow">›</view>
+    </view>
+    <view class="menu-item" bindtap="goToUserManage">
+      <view class="menu-icon">👥</view>
+      <view class="menu-text">用户管理</view>
+      <view class="menu-arrow">›</view>
+    </view>
+    <view class="menu-item" bindtap="goToRiderManage">
+      <view class="menu-icon">🚴</view>
+      <view class="menu-text">骑手管理</view>
+      <view class="menu-arrow">›</view>
+    </view>
+    <view class="menu-item" bindtap="goToNoticeManage">
+      <view class="menu-icon">📢</view>
+      <view class="menu-text">公告管理</view>
+      <view class="menu-arrow">›</view>
+    </view>
+    <view class="menu-item" bindtap="goToSizeManage">
+      <view class="menu-icon">📦</view>
+      <view class="menu-text">包裹规格</view>
+      <view class="menu-arrow">›</view>
+    </view>
+    <view class="menu-item" bindtap="goToStationManage">
+      <view class="menu-icon">🏢</view>
+      <view class="menu-text">快递站点</view>
+      <view class="menu-arrow">›</view>
+    </view>
+    <view class="menu-item" bindtap="goToBuildingManage">
+      <view class="menu-icon">🏠</view>
+      <view class="menu-text">宿舍楼</view>
+      <view class="menu-arrow">›</view>
+    </view>
+  </view>
+</view>
